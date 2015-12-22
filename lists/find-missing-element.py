@@ -7,7 +7,7 @@ Given array of integers and same array minus one element, find which is missing 
 """
 
 # Solution 1: O(N lon N)
-def find_mssing_element_ineffective(lst_full: List[int], lst_trimmed: List[int]):
+def find_missing_element_ineffective(lst_full: List[int], lst_trimmed: List[int]):
     """
     Inefficient solution is to sort the lists,
     and checking whether an element in the left array appears in the right too,
@@ -25,7 +25,7 @@ def find_mssing_element_ineffective(lst_full: List[int], lst_trimmed: List[int])
 
 
 # Solution 2: O(N)
-def find_mssing_element_mapping(lst_full: List[int], lst_trimmed: List[int]):
+def find_missing_element_mapping(lst_full: List[int], lst_trimmed: List[int]):
     """
     Don't sort.
     Store the number of times an element appears in lst_trimmed - in a defaultdict.
@@ -44,7 +44,7 @@ def find_mssing_element_mapping(lst_full: List[int], lst_trimmed: List[int]):
 
 
 # Solution 3: O(1) / XOR
-def find_mssing_element_XOR(lst_full: List[int], lst_trimmed: List[int]):
+def find_missing_element_XOR(lst_full: List[int], lst_trimmed: List[int]):
     """
     XOR all the numbers in lst_full and lst_trimmed.
     All numbers in lst_trimmed also appear in lst_full, but there is an extra number
@@ -90,12 +90,12 @@ if __name__ == '__main__':
     tcf = lst, lst_
 
     print('\n-***- Test case 2: missing number = \t%s' % missf)
-    tcf_ineff = find_mssing_element_ineffective(*tcf)
-    tcf_map = find_mssing_element_mapping(*tcf)
-    tcf_xor = find_mssing_element_XOR(*tcf)
-    print('find_mssing_element_ineffective: \t[%s] %s' % (vf[tcf_ineff == missf], tcf_ineff))
-    print('find_mssing_element_mapping: \t\t[%s] %s' % (vf[tcf_map == missf], tcf_map))
-    print('find_mssing_element_XOR: \t\t\t[%s] %s' % (vf[tcf_xor == missf], tcf_xor))
+    tcf_ineff = find_missing_element_ineffective(*tcf)
+    tcf_map = find_missing_element_mapping(*tcf)
+    tcf_xor = find_missing_element_XOR(*tcf)
+    print('find_missing_element_ineffective: \t[%s] %s' % (vf[tcf_ineff == missf], tcf_ineff))
+    print('find_missing_element_mapping: \t\t[%s] %s' % (vf[tcf_map == missf], tcf_map))
+    print('find_missing_element_XOR: \t\t\t[%s] %s' % (vf[tcf_xor == missf], tcf_xor))
     # -------------------------------------------------------------------------------------
 
     # Test Case II ------------------------------------------------------------------------
@@ -105,12 +105,12 @@ if __name__ == '__main__':
     tcm = lst, lst_
 
     print('\n-***- Test case 2: missing number = \t%s' % missm)
-    tcm_ineff = find_mssing_element_ineffective(*tcm)
-    tcm_map = find_mssing_element_mapping(*tcm)
-    tcm_xor = find_mssing_element_XOR(*tcm)
-    print('find_mssing_element_ineffective: \t[%s] %s' % (vf[tcm_ineff == missm], tcm_ineff))
-    print('find_mssing_element_mapping: \t\t[%s] %s' % (vf[tcm_map == missm], tcm_map))
-    print('find_mssing_element_XOR: \t\t\t[%s] %s' % (vf[tcm_xor == missm], tcm_xor))
+    tcm_ineff = find_missing_element_ineffective(*tcm)
+    tcm_map = find_missing_element_mapping(*tcm)
+    tcm_xor = find_missing_element_XOR(*tcm)
+    print('find_missing_element_ineffective: \t[%s] %s' % (vf[tcm_ineff == missm], tcm_ineff))
+    print('find_missing_element_mapping: \t\t[%s] %s' % (vf[tcm_map == missm], tcm_map))
+    print('find_missing_element_XOR: \t\t\t[%s] %s' % (vf[tcm_xor == missm], tcm_xor))
     # -------------------------------------------------------------------------------------
 
     # Test Case III -----------------------------------------------------------------------
@@ -120,25 +120,25 @@ if __name__ == '__main__':
     tcl = lst, lst_
 
     print('\n-***- Test case 3: missing number = \t%s' % missl)
-    tcl_ineff = find_mssing_element_ineffective(*tcl)
-    tcl_map = find_mssing_element_mapping(*tcl)
-    tcl_xor = find_mssing_element_XOR(*tcl)
-    print('find_mssing_element_ineffective: \t[%s] %s' % (vf[tcl_ineff == missl], tcl_ineff))
-    print('find_mssing_element_mapping: \t\t[%s] %s' % (vf[tcl_map == missl], tcl_map))
-    print('find_mssing_element_XOR: \t\t\t[%s] %s' % (vf[tcl_xor == missl], tcl_xor))
+    tcl_ineff = find_missing_element_ineffective(*tcl)
+    tcl_map = find_missing_element_mapping(*tcl)
+    tcl_xor = find_missing_element_XOR(*tcl)
+    print('find_missing_element_ineffective: \t[%s] %s' % (vf[tcl_ineff == missl], tcl_ineff))
+    print('find_missing_element_mapping: \t\t[%s] %s' % (vf[tcl_map == missl], tcl_map))
+    print('find_missing_element_XOR: \t\t\t[%s] %s' % (vf[tcl_xor == missl], tcl_xor))
     # -------------------------------------------------------------------------------------
 
 # -***- Test case 2: missing number = 	6478330289347169727
-# find_mssing_element_ineffective: 	[v] 6478330289347169727
-# find_mssing_element_mapping: 		[v] 6478330289347169727
-# find_mssing_element_XOR: 			[v] 6478330289347169727
+# find_missing_element_ineffective: 	[v] 6478330289347169727
+# find_missing_element_mapping: 		[v] 6478330289347169727
+# find_missing_element_XOR: 			[v] 6478330289347169727
 #
 # -***- Test case 2: missing number = 	-5682910616121461240
-# find_mssing_element_ineffective: 	[v] -5682910616121461240
-# find_mssing_element_mapping: 		[v] -5682910616121461240
-# find_mssing_element_XOR: 			[v] -5682910616121461240
+# find_missing_element_ineffective: 	[v] -5682910616121461240
+# find_missing_element_mapping: 		[v] -5682910616121461240
+# find_missing_element_XOR: 			[v] -5682910616121461240
 #
 # -***- Test case 3: missing number = 	-60748666
-# find_mssing_element_ineffective: 	[v] -60748666
-# find_mssing_element_mapping: 		[v] -60748666
-# find_mssing_element_XOR: 			[v] -60748666
+# find_missing_element_ineffective: 	[v] -60748666
+# find_missing_element_mapping: 		[v] -60748666
+# find_missing_element_XOR: 			[v] -60748666
