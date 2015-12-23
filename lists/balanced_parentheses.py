@@ -12,8 +12,8 @@ def chunk_slicer(iterable, repeat=2):
     (as opposed to forloop which chops by one at a time).
 
     Example usage:
-      - chunker('ABCDEFG', 3) -> [('A', 'B', 'C'), ('D', 'E', 'F'), ('G', None, None)]
-      - chunker('ABCDEFGH', 2) -> [('A', 'B'), ('C', 'D'), ('E', 'F'), ('G', 'H')]
+      - chunk_slicer('ABCDEFG', 3) -> [('A', 'B', 'C'), ('D', 'E', 'F'), ('G', None, None)]
+      - chunk_slicer('ABCDEFGH', 2) -> [('A', 'B'), ('C', 'D'), ('E', 'F'), ('G', 'H')]
     """
     args = [iter(iterable)] * repeat
     return itertools.zip_longest(*args)

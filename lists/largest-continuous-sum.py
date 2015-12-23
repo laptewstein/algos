@@ -30,7 +30,7 @@ def largest_continuous_sum(lst: List[int]) -> List[int]:
 
 def largest_continuous_sum_with_positions(lst: List[int]) -> List[int]:
     """
-    With pointers
+    With pointers of start and end for the sublist
     """
     if not lst: return lst
     max_sum = current = lst[0]
@@ -80,8 +80,8 @@ if __name__ == '__main__':
 
     # import itertools
     # for l, func in itertools.product(lists, funcs):
-    #     print(header % (l, len(l), sum(lst_)))
-    #     print(vis_msg % (func.__name__, func(lst)))
+    #     print(header % (l, len(l), sum(l)))
+    #     print(vis_msg % (func.__name__, func(l)))
 
     for l in (lst, lst_, lst__):
         print(header % (l, len(l), sum(l)))
