@@ -1,10 +1,10 @@
 # Algo implementations
 - **Lists**
-  * [Sum Pairs](algos/lists/array_sum_pairs.py): 
+  * [Sum Pairs](lists/array_sum_pairs.py): 
     *Within a list of integers, find matches for target number. Each integer may appear only once in a pair.*
-  * [Balanced Parentheses](algos/lists/balanced_parentheses.py):
+  * [Balanced Parentheses](lists/balanced_parentheses.py):
     *Given a string of opening and closing parentheses, check whether it’s balanced.* 
-  * [List difference](algos/lists/find-missing-element.py):
+  * [List difference](lists/find-missing-element.py):
     *Given array of integers and same array minus one element, find which is missing in the second array.* 
-  * [Largest Continuous Sum](algos/lists/largest-continuous-sum.py):
+  * [Largest Continuous Sum](lists/largest-continuous-sum.py):
     *Given an array of integers (positive and negative), find the largest continuous sum.* 
