@@ -1,0 +1,443 @@
+<html>
+<head>
+	<title>Star Schema</title>
+	<style type="text/css">.centered {
+        background-color: #EEFFFF;
+        border: 1px;
+        border-color: #000;
+        padding: 20px;
+    }
+    .single {
+        width: 500px;
+        margin: 0 auto;
+    }
+    .code {
+        color: #000;
+        display: block;
+    }
+    body {
+        font-family: Verdana, sans-serif;
+        background-color: beige;
+    }
+    .splits {
+        line-height: 1px;
+    }
+    .tables {
+        border: 1px;
+        border-color: #000;
+        margin: 0 auto;
+        padding: 10px;
+    }
+    .querydesc {
+        font-style: italic;
+        color: #800000;
+        font-weight: bold;
+        padding-left: 40px;
+    }
+    .normal {
+        width: 1000px;
+    }
+    .wide {
+        width: 1100px;
+    }
+    .float {
+        float: left;
+    }
+    .text {
+        width: 230px;
+    }
+    .long {
+        width: 330px;
+    }
+    .image {
+        width: 770px;
+    }
+    #wrapper {
+        background-color: white;
+        padding: 10px;
+    }
+</style>
+</head>
+<body>
+<div id="wrapper">
+<h2>Star Schema task: employee (Fact table), (department, bonus)</h2>
+
+<p class="sections">1. Let&#39;s create tables:</p>
+
+<div class="centered single code">
+<pre>
+/** Flavor: MySQL **/
+
+CREATE TABLE department (
+    dept_id INT PRIMARY KEY AUTO_INCREMENT,
+    dept_name VARCHAR(40)
+) ENGINE=INNODB;
+</pre>
+
+<hr />
+<pre>
+CREATE TABLE employee (
+    emp_id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(40),
+    dept_id INT,
+    INDEX employee_dept_idx (dept_id),
+    PRIMARY KEY (emp_id),
+    FOREIGN KEY (dept_id)
+      REFERENCES department(dept_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+) ENGINE=INNODB;
+</pre>
+
+<hr />
+<pre>
+CREATE TABLE bonus (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    date DATE,
+    emp_id INT NOT NULL,
+    amount DECIMAL(8, 2),
+    INDEX bonus_emp_idx (emp_id),
+    INDEX bonus_date_idx (date),
+    FOREIGN KEY (emp_id)
+      REFERENCES employee(emp_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+) ENGINE=INNODB;
+</pre>
+</div>
+
+<p class="sections">2. And populate them with semi-random data:</p>
+
+<div class="centered single code">
+<pre>
+INSERT INTO department
+	(`dept_name`)
+VALUES
+    (&#39;Business Development&#39;)
+    ,(&#39;Accounting&#39;)
+    ,(&#39;Sales&#39;)
+    ,(&#39;Marketing&#39;)
+    ,(&#39;Customer Service&#39;)
+    ,(&#39;Creative&#39;)
+    ,(&#39;IT: Software Engineeting&#39;)
+    ,(&#39;IT: System / Infrastructure&#39;);
+</pre>
+</div>
+
+<p class="splits">&nbsp;</p>
+
+<div class="centered single code">
+<pre>
+INSERT INTO employee
+	(`name`, `dept_id`)
+VALUES
+	(&#39;Joey Bushard&#39;, 3)
+    ,(&#39;Foster Weathers&#39;, 4)
+    ,(&#39;Amanda Rock&#39;, 7)
+    ,(&#39;Renato Krings&#39;, 2)
+    ,(&#39;Felix Hamdan&#39;, 6)    -- 5
+    ,(&#39;Andera Honig&#39;, 8)
+    ,(&#39;Annamarie Jacobo&#39;, 6)
+    ,(&#39;Tarra Zayac&#39;, 1)
+    ,(&#39;Annabell Trim&#39;, 8)
+    ,(&#39;Reba Redmond&#39;, 7)
+    ,(&#39;Rea Mccleary&#39;, 2)
+    ,(&#39;Josephine Briere&#39;, 1)
+    ,(&#39;Adelaida Rolf&#39;, 3)
+    ,(&#39;Libby Lamoreaux&#39;, 2)
+    ,(&#39;Herminia Reetz&#39;, 1)
+    ,(&#39;Goldie Parchman&#39;, 7)
+    ,(&#39;Hung Groseclose&#39;, 4)
+    ,(&#39;Jannette Tekulve&#39;, 7)
+    ,(&#39;Emiko Gough&#39;, 8)      -- 5
+    ,(&#39;Calandra Calle&#39;, 3)
+    ,(&#39;Caitlyn Wisniewski&#39;, 1)
+    ,(&#39;Babette Faught&#39;, 7)
+    ,(&#39;Arica Wetmore&#39;, 6);
+</pre>
+</div>
+
+<p class="splits">&nbsp;</p>
+
+<div class="centered single code">
+<pre>
+INSERT INTO bonus
+	(`emp_id`, `amount`, `date`)
+VALUES
+    -- ROUND((RAND() * (max-min))+min) for employee and amount
+    -- employee_id
+    (ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        -- amount
+        ROUND((RAND() * 1000), 2)+10,
+        -- date
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+    ,(ROUND(RAND() * (select MAX(emp_id)-1 FROM employee))+1,
+        ROUND((RAND() * 990), 2)+10,
+        DATE(FROM_UNIXTIME(
+          UNIX_TIMESTAMP(NOW())
+          - FLOOR(0 + (RAND() * 33072000)))))
+</pre>
+</div>
+
+<p class="sections">3. Verify data:</p>
+
+<div class="tables normal">
+    <div class="float text">
+        <pre>
+/* Department table */
+SELECT
+    dept_id
+    ,dept_name
+FROM
+    department
+
+
+/*
+Listing all departments
+of an organization
+*/
+        </pre>
+    </div>
+    <div class="float image"><img alt="Department" src="https://raw.githubusercontent.com/Kartoshka548/algos/master/sql/img/table_department.png" /></div>
+    <br style="clear: left;" />
+</div>
+
+<div class="tables normal">
+    <div class="float text">
+        <pre>
+/* Employee table */
+SELECT
+    emp_id
+    ,name
+    ,dept_id
+FROM
+    employee
+
+
+/*
+Listing all employees
+on record
+*/
+        </pre>
+    </div>
+    <div class="float image"><img alt="Employee" src="https://raw.githubusercontent.com/Kartoshka548/algos/master/sql/img/table_employee.png" /></div>
+    <br style="clear: left;" />
+</div>
+
+<div class="tables normal">
+    <div class="float text">
+        <pre>
+/* Bonus table */
+SELECT
+    id
+    ,date
+    ,emp_id
+    ,amount
+FROM
+    bonus
+ORDER BY 2
+
+
+/*
+Keeping track of
+  - who,
+  - when and
+  - which bonus received
+*/
+        </pre>
+    </div>
+    <div class="float image"><img alt="Bonus" src="https://raw.githubusercontent.com/Kartoshka548/algos/master/sql/img/table_bonus.png" /></div>
+    <br style="clear: left;" />
+</div>
+<p class="sections">4. Leverage the data:</p>
+<p class="querydesc">Employee queries:</p>
+<div class="tables normal">
+    <div class="float text">
+        <pre>
+/* Who works where? */
+SELECT
+    e.emp_id
+    ,e.name
+    ,d.dept_name
+FROM
+    employee e
+JOIN department d ON
+    e.dept_id = d.dept_id
+ORDER BY 1
+        </pre>
+    </div>
+    <div class="float image"><img alt="employee_with_departments" src="https://raw.githubusercontent.com/Kartoshka548/algos/master/sql/img/employee_with_departments.png" /></div>
+    <br style="clear: left;" />
+</div>
+
+<div class="tables normal">
+    <div class="float text">
+        <pre>
+/* Employee count
+by department */
+SELECT
+     d.dept_name
+     ,count(e.emp_id)
+FROM
+     employee e
+RIGHT JOIN department d ON
+     e.dept_id = d.dept_id
+GROUP BY 1
+        </pre>
+    </div>
+    <div class="float image"><img alt="Department statement" src="https://raw.githubusercontent.com/Kartoshka548/algos/master/sql/img/department_statement.png" /></div>
+    <br style="clear: left;" />
+</div>
+<p class="querydesc">Multi-table queries:</p>
+<div class="tables wide">
+    <div class="float long">
+        <pre>
+/* Who never got bonus? */
+SELECT
+    d.dept_name
+    ,e.name
+FROM bonus b
+RIGHT JOIN employee e ON
+    e.emp_id = b.emp_id
+JOIN department d ON
+    e.dept_id = d.dept_id
+WHERE b.emp_id IS NULL
+ORDER BY 1
+
+/*
+List unlucky employees along
+their department
+*/
+        </pre>
+    </div>
+    <div class="float image"><img alt="Ineffective employees" src="https://raw.githubusercontent.com/Kartoshka548/algos/master/sql/img/worst_employees.png" /></div>
+    <br style="clear: left;" />
+</div>
+
+<div class="tables wide">
+    <div class="float long">
+        <pre>
+/* Total bonuses paid by
+organization per year/month */
+SELECT
+  extract(YEAR from date) AS Year
+  ,extract(MONTH from date) AS month
+  ,SUM(amount)
+FROM bonus
+GROUP BY 1, 2
+        </pre>
+    </div>
+    <div class="float image"><img alt="Bonuses Paid by month/year" src="https://raw.githubusercontent.com/Kartoshka548/algos/master/sql/img/bonuses_paid_by_month-year.png" /></div>
+    <br style="clear: left;" />
+</div>
+
+<div class="tables wide">
+    <div class="float long">
+        <pre>
+/* Bonuses paid per department */
+
+/* --- JOIN version --- */
+SELECT
+    extract(YEAR from b.date) AS Year
+    ,extract(MONTH from b.date) AS Month
+    ,d.dept_name AS Department
+    ,SUM(b.amount) AS Paid
+FROM
+    bonus b
+JOIN employee e ON
+    b.emp_id = e.emp_id
+JOIN department d ON
+    e.dept_id = d.dept_id
+GROUP BY 1, 2, 3
+
+
+/* --- NO-JOIN version --- */
+SELECT
+    extract(YEAR from b.date) AS Year
+    ,extract(MONTH from b.date) AS Month
+    ,d.dept_name AS Department
+    ,SUM(b.amount) AS Paid
+FROM
+    bonus b
+    ,employee e
+    ,department d
+WHERE
+    b.emp_id = e.emp_id
+    AND e.dept_id = d.dept_id
+GROUP BY 1, 2, 3
+        </pre>
+    </div>
+    <div class="float image"><img alt="Bonuses paid per month/year by departments" src="https://raw.githubusercontent.com/Kartoshka548/algos/master/sql/img/bonuses_paid_by_month-year_by_department.png" /></div>
+    <br style="clear: left;" />
+</div>
+</div>
+</body>
+</html>
+
