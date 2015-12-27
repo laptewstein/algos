@@ -8,3 +8,6 @@
     *Given array of integers and same array minus one element, find which is missing in the second array.* 
   * [Largest Continuous Sum](lists/largest-continuous-sum.py):
     *Given an array of integers (positive and negative), find the largest continuous sum.* 
+- **SQL**
+  * [Star Schema](http://htmlpreview.github.io/?https://github.com/Kartoshka548/algos/blob/master/sql/sql-star-schema-EDB.html)
+    *Find out insights of Employee fact table, Department and Bonus dimensions.*
