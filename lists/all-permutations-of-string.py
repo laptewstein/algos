@@ -1,6 +1,6 @@
 # Generate all permutations of a given string.
 
-def permutations(charset):
+def permutations_logic(charset):
     """
     Let the string be ‘CES’, and we have length 2 permutations ‘ES’ and ‘SE’.
     How do we incorporate the letter C into these permutations?
@@ -8,7 +8,7 @@ def permutations(charset):
     beginning, middle, and the end. So for ‘SE’ the result is: ‘CSE’,
     ‘SCE’, ‘SEC’. And for the string ‘ES’ the results is: ‘CES’, ‘ECS’, ‘ESC’.
 
-    Recurse until the string is of length 1 by repeatedly removing the 
+    Recurse until the string is of length 1 by repeatedly removing the
     first character, this is the base case and the result is the string itself
     (the permutation of a string with length 1 is itself).
 
@@ -28,7 +28,7 @@ def permutations(charset):
     than 10-12 characters though, as it will take a long time to complete.
     Inherently, there are just too many permutations.
     """
-    fingerize = permutations  # declarative visualized renaming
+    fingerize = permutations_logic  # declarative visualized renaming
     if len(charset) < 2:
         # start from last char
         if DEBUG: print('Last letter is \'%(c)s\', starting FiveFingerFillet '
@@ -56,6 +56,7 @@ def permutations(charset):
 
         #insert the character into every possible location
         for position in range(len(fingaz) + 1):
+
             chopping_attempt = fingaz[:position] + stab + fingaz[position:]
 
             if DEBUG:
@@ -66,8 +67,21 @@ def permutations(charset):
             round_response.append(chopping_attempt)
 
     if DEBUG: print('Returning %s' % round_response)
-
     return round_response
+
+
+# clean version
+def permutations(charset=''):
+    """
+    Generate all permutations of a given string.
+    """
+    if len(charset) < 2: return [charset]
+    perms = permutations(charset[1:])
+    key, res = charset[0], []
+    for perm in perms:
+        for pos in range(len(perm) + 1):
+            res.append(perm[:pos] + key + perm[pos:])
+    return res
 
 
 ##### FLIGHT
@@ -75,7 +89,7 @@ if __name__ == '__main__':
     if __import__('sys').version_info.major < 3:
         print('Tested with Python 3.5')
 
-    DEBUG = True
+    DEBUG = True  # if False, same result as if `permutations` was called
     EMPTY = '...'
     TEST_CASE_SEPARATOR = '-', '=', 80
 
@@ -87,7 +101,7 @@ if __name__ == '__main__':
 
     for w, validation in zip(WORDS, CALCULATIONS):
         print('%s' % ('%s ' % w).ljust(TEST_CASE_SEPARATOR[2], TEST_CASE_SEPARATOR[0]))
-        perms = permutations(w)
+        perms = permutations_logic(w)
         assert perms == validation, 'Test case failed.'
         args = (w, len(perms), '' if len(perms) < 2 else 's',
                 perms, TEST_CASE_SEPARATOR[1] * TEST_CASE_SEPARATOR[2])
