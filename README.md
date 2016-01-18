@@ -10,6 +10,8 @@
     *Given an array of integers (positive and negative), find the largest continuous sum.* 
   * [Next higher number](lists/next-higher-number-with-same-digits.py):
     *Given a number, find the next higher number using only the digits in the given number.*
+  * [All permutations of a string charset](lists/all-permutations-of-string.py):
+    *Generate all possible permutations of a given string.*
 - **SQL**
   * [Star Schema](http://htmlpreview.github.io/?https://github.com/Kartoshka548/algos/blob/master/sql/sql-star-schema-EDB.html)
     *Find out insights of Employee fact table, Department and Bonus dimensions.*
