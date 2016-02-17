@@ -16,23 +16,26 @@ def second_smallest(lst: List[int]) -> Tuple[List, int, int]:
         print("Invalid Input")
         return None
 
-    first = second = sys.maxsize
+    absolute_low = second_smallest = sys.maxsize
     for i in range(0, arr_len):
 
-        # If current element is smaller than first then
-        # update both first and second
-        if operator.lt(lst[i], first):
-            second = first
-            first = lst[i]
+        # current element is lower than lowest?
+        if lst[i] < absolute_low:
 
-        # If arr[i] is in between first and second then
-        # update second
-        elif operator.lt(lst[i], second) and operator.ne(lst[i], first):
-            second = lst[i]
+            # make (currently) lowest a second_smallest: we found lower
+            second_smallest = absolute_low
+            # then assign this all-time low as absolute
+            absolute_low = lst[i]
 
-    if operator.eq(second, sys.maxsize):
+        # current element in between absolute low and second-smallest?
+        elif absolute_low < lst[i] < second_smallest:
+
+            # update second_smallest
+            second_smallest = lst[i]
+
+    if operator.eq(second_smallest, sys.maxsize):
         print("No second smallest element")
-    return lst, first, second
+    return lst, absolute_low, second_smallest
 
 
 ##### FLIGHT
