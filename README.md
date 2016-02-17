@@ -10,6 +10,8 @@
     *Given an array of integers (positive and negative), find the largest continuous sum.* 
   * [Next higher number](lists/next-higher-number-with-same-digits.py):
     *Given a number, find the next higher number using only the digits in the given number.*
+  * [Second smallest number](lists/second_smallest-in-array.py):
+    *Given an array of integers, find the smallest and second smallest element.*
   * [All permutations of a string charset](lists/all-permutations-of-string.py):
     *Generate all possible permutations of a given string.*
 - **SQL**

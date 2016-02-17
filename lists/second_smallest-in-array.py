@@ -1,5 +1,5 @@
 """
-Given an array number, find the smallest and second smallest element.
+Given an array of integers, find the smallest and second smallest element.
 """
 
 import sys
