@@ -5,11 +5,13 @@ Given an array of integers, find the smallest and second smallest element.
 import sys
 import random
 import operator
+from typing import List, Tuple, Union
 
-def print2Smallest(arr):
+
+def second_smallest(lst: List[int]) -> Tuple[List, int, int]:
 
     # There should be at least two elements
-    arr_len = len(arr)
+    arr_len = len(lst)
     if operator.lt(arr_len, 2):
         print("Invalid Input")
         return None
@@ -19,18 +21,18 @@ def print2Smallest(arr):
 
         # If current element is smaller than first then
         # update both first and second
-        if operator.lt(arr[i], first):
+        if operator.lt(lst[i], first):
             second = first
-            first = arr[i]
+            first = lst[i]
 
         # If arr[i] is in between first and second then
         # update second
-        elif operator.lt(arr[i], second) and operator.ne(arr[i], first):
-            second = arr[i]
+        elif operator.lt(lst[i], second) and operator.ne(lst[i], first):
+            second = lst[i]
 
     if operator.eq(second, sys.maxsize):
         print("No second smallest element")
-    return arr, first, second
+    return lst, first, second
 
 
 ##### FLIGHT
@@ -42,4 +44,4 @@ if __name__ == '__main__':
     list_generator = lambda: (random.randrange(-5, 50) for n in range(15))
     for l in (list_generator for _ in range(10)):
         list_ = list(l())
-        print(line % print2Smallest(list_))
+        print(line % second_smallest(list_))
