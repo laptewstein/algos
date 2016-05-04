@@ -14,7 +14,7 @@
     *Given an array of integers, find the smallest and second smallest element.*
   * [All permutations of a string charset](lists/all-permutations-of-string.py):
     *Generate all possible permutations of a given string.*
-- **Lists**
+- **Strings**
   * [FizzBuzz](strings/fizzbuzz.py): 
     *For multiples of 3 print "Fizz"; for multiples of 5 print "Buzz". Combine for both.*
 - **SQL**
