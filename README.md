@@ -19,6 +19,9 @@
     *For multiples of 3 print "Fizz"; for multiples of 5 print "Buzz". Combine for both.*
   * [RLE (Simple Lossless Compression)](strings/rle.py):
     *Count consecutive characters in a string.* 
+  * [Sequential column names](strings/increment_excel_columns.py):
+    *Given sequennce of characters, return next in alphabetic order.* 
+
 - **SQL**
   * [Star Schema](http://htmlpreview.github.io/?https://github.com/Kartoshka548/algos/blob/master/sql/sql-star-schema-EDB.html)
     *Find out insights of Employee fact table, Department and Bonus dimensions.*
