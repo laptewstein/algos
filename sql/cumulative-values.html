@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Star Schema</title>
+	<title>Cumulative values</title>
 	<style type="text/css">.centered {
         background-color: #EEFFFF;
         border: 1px;
@@ -60,9 +60,9 @@
 </head>
 <body>
 <div id="wrapper">
-<h2>Cumulative table values</h2>
+<h2>Cumulative values</h2>
 
-<p class="sections">1. Let&#39;s create a tables:</p>
+<p class="sections">1. Let&#39;s create a table:</p>
 
 <div class="centered single code">
 <pre>
@@ -79,9 +79,10 @@ CREATE TABLE CUMULATIVESUM (
 <pre>
 INSERT INTO CUMULATIVESUM
 SELECT 1, 10 UNION
-SELECT 2, 2  UNION
+SELECT 2, 3  UNION
 SELECT 3, 6  UNION
-SELECT 4, 10
+SELECT 4, 17  UNION
+SELECT 5, 10
 </pre>
 </div>
 
@@ -92,33 +93,28 @@ SELECT 4, 10
 <div class="tables normal">
     <div class="float text">
         <pre>
-/* Department table */
-SELECT
-    *
-FROM
-    CUMULATIVESUM
-
-
-/*
-Listing table values
-*/
+/* List values */
+SELECT *
+FROM CUMULATIVESUM
         </pre>
     </div>
     <div class="float image"><img alt="table values" src="https://raw.githubusercontent.com/Kartoshka548/algos/master/sql/img/select_star.png" /></div>
     <br style="clear: left;" />
 </div>
 
-<p class="sections">4. Self-join the table:</p>
+<p class="sections">4.1 Self-join the table:</p>
 <div class="tables normal">
     <div class="float text">
         <pre>
+/* With inner join */
 SELECT
     t1.ID
     ,t1.VALUE
     ,t2.VALUE
 FROM
     CUMULATIVESUM t1
-JOIN CUMULATIVESUM t2 ON t1.ID >= t2.ID
+JOIN CUMULATIVESUM t2
+    ON t1.ID >= t2.ID
 ORDER By t1.ID
         </pre>
     </div>
@@ -126,14 +122,16 @@ ORDER By t1.ID
     <br style="clear: left;" />
 </div>
 
-<p class="sections">4. Cumulative self-join:</p>
+<p class="sections">4.2 <strong>Cumulative self-join:</strong></p>
 <div class="tables normal">
     <div class="float text">
         <pre>
+/* With where clause */
 SELECT
     t1.ID
     ,t1.VALUE
-    ,Sum(t2.VALUE) as CUMULATIVE_VALUE
+    ,Sum(t2.VALUE)
+        as CUMULATIVE_VALUE
 FROM
     CUMULATIVESUM t1
     ,CUMULATIVESUM t2
