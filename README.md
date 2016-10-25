@@ -2,6 +2,8 @@
 - **Lists**
   * [Sum Pairs](lists/array_sum_pairs.py): 
     *Within a list of integers, find matches for target number. Each integer may appear only once in a pair.*
+  * [Fibonacci sequence](lists/fibonacci.py):
+    *Given a number n, return first n elements from a fibonacci sequence.*
   * [Balanced Parentheses](lists/balanced_parentheses.py):
     *Given a string of opening and closing parentheses, check whether it’s balanced.* 
   * [List difference](lists/find-missing-element.py):
@@ -16,7 +18,7 @@
     *Generate all possible permutations of a given string.*
 - **Strings**
   * [FizzBuzz](strings/fizzbuzz.py): 
-    *For multiples of 3 print "Fizz"; for multiples of 5 print "Buzz". Combine for both.*
+    *Classics. For multiples of 3 print "Fizz"; for multiples of 5 print "Buzz". Combine for both.*
   * [RLE (Simple Lossless Compression)](strings/rle.py):
     *Count consecutive characters in a string.* 
   * [Sequential column names](strings/increment_excel_columns.py):
