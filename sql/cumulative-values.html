@@ -1,0 +1,153 @@
+<html>
+<head>
+	<title>Star Schema</title>
+	<style type="text/css">.centered {
+        background-color: #EEFFFF;
+        border: 1px;
+        border-color: #000;
+        padding: 20px;
+    }
+    .single {
+        width: 500px;
+        margin: 0 auto;
+    }
+    .code {
+        color: #000;
+        display: block;
+    }
+    body {
+        font-family: Verdana, sans-serif;
+        background-color: beige;
+    }
+    .splits {
+        line-height: 1px;
+    }
+    .tables {
+        border: 1px;
+        border-color: #000;
+        margin: 0 auto;
+        padding: 10px;
+    }
+    .querydesc {
+        font-style: italic;
+        color: #800000;
+        font-weight: bold;
+        padding-left: 40px;
+    }
+    .normal {
+        width: 1000px;
+    }
+    .wide {
+        width: 1100px;
+    }
+    .float {
+        float: left;
+    }
+    .text {
+        width: 230px;
+    }
+    .long {
+        width: 330px;
+    }
+    .image {
+        width: 770px;
+    }
+    #wrapper {
+        background-color: white;
+        padding: 10px;
+    }
+</style>
+</head>
+<body>
+<div id="wrapper">
+<h2>Cumulative table values</h2>
+
+<p class="sections">1. Let&#39;s create a tables:</p>
+
+<div class="centered single code">
+<pre>
+CREATE TABLE CUMULATIVESUM (
+  ID tinyint
+  ,VALUE tinyint
+) ENGINE=INNODB
+</pre>
+</div>
+
+<p class="sections">2. And populate it with some data:</p>
+
+<div class="centered single code">
+<pre>
+INSERT INTO CUMULATIVESUM
+SELECT 1, 10 UNION
+SELECT 2, 2  UNION
+SELECT 3, 6  UNION
+SELECT 4, 10
+</pre>
+</div>
+
+<p class="splits">&nbsp;</p>
+
+<p class="sections">3. Verify data:</p>
+
+<div class="tables normal">
+    <div class="float text">
+        <pre>
+/* Department table */
+SELECT
+    *
+FROM
+    CUMULATIVESUM
+
+
+/*
+Listing table values
+*/
+        </pre>
+    </div>
+    <div class="float image"><img alt="table values" src="https://raw.githubusercontent.com/Kartoshka548/algos/master/sql/img/select_star.png" /></div>
+    <br style="clear: left;" />
+</div>
+
+<p class="sections">4. Self-join the table:</p>
+<div class="tables normal">
+    <div class="float text">
+        <pre>
+SELECT
+    t1.ID
+    ,t1.VALUE
+    ,t2.VALUE
+FROM
+    CUMULATIVESUM t1
+JOIN CUMULATIVESUM t2 ON t1.ID >= t2.ID
+ORDER By t1.ID
+        </pre>
+    </div>
+    <div class="float image"><img alt="self-joining a table" src="https://raw.githubusercontent.com/Kartoshka548/algos/master/sql/img/self-join.png" /></div>
+    <br style="clear: left;" />
+</div>
+
+<p class="sections">4. Cumulative self-join:</p>
+<div class="tables normal">
+    <div class="float text">
+        <pre>
+SELECT
+    t1.ID
+    ,t1.VALUE
+    ,Sum(t2.VALUE) as CUMULATIVE_VALUE
+FROM
+    CUMULATIVESUM t1
+    ,CUMULATIVESUM t2
+WHERE t1.ID >= t2.ID
+GROUP BY t1.ID, t1.VALUE
+ORDER BY t1.ID
+        </pre>
+    </div>
+    <div class="float image"><img alt="self-joining a table" src="https://raw.githubusercontent.com/Kartoshka548/algos/master/sql/img/cumulative-self-join.png" /></div>
+    <br style="clear: left;" />
+</div>
+
+
+</div>
+</body>
+</html>
+
