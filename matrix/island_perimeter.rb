@@ -19,11 +19,11 @@ class Solution
   def calculate_perimeter(matrix)
     islands, neighbours = 0
     matrix.each do |row|
-      row.each do |column|
-        if column == 1
-          islands = islands.succ # count islands
-          neighbours = neighbours.succ if (i < matrix.length - 1 && matrix[i + 1][j] == 1) # neighbour BELOW
-          neighbours = neighbours.succ if (j < matrix[i].length - 1 && matrix[i][j + 1] == 1) # neighbour RIGHT
+      row.each do |value|
+        if value == 1
+          islands = islands.succ # incrememnt land count
+          neighbours = neighbours.succ if (i < matrix.size - 1 && matrix[i + 1][j] == 1) # neighbour BELOW
+          neighbours = neighbours.succ if (j < row.size - 1 && matrix[i][j + 1] == 1) # neighbour RIGHT
         end
       end
     end
