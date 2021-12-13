@@ -23,7 +23,10 @@
     *Count consecutive characters in a string.* 
   * [Sequential column names](strings/increment_excel_columns.py):
     *Given sequennce of characters, return next in alphabetic order.* 
-
+- **Matrix**
+![alt text](https://assets.leetcode.com/uploads/2018/10/12/island.png)
+  * [Island perimeter](matrix/island_perimeter.rb): 
+    *Land and water on an x/y map. Determine the perimeter of land surface.*
 - **SQL**
   * [Star Schema](http://htmlpreview.github.io/?https://github.com/Kartoshka548/algos/blob/master/sql/sql-star-schema-EDB.html)
     *Find out insights of Employee fact table, Department and Bonus dimensions.*
