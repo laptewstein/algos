@@ -27,6 +27,9 @@
   * [Island perimeter](matrix/island_perimeter.rb): 
     *Land and water on an x/y map. Determine the perimeter of land surface.*
     ![Island perimeter](matrix/images/island_perimeter.png)
+  * [Image smoother](matrix/image_smoother.rb): 
+    *Given image matrix with 0-255 grayscale values in each cell, blur the image using neighboring cell values.*
+    ![Image Smoother](matrix/images/image_smoother.png)
 - **SQL**
   * [Star Schema](http://htmlpreview.github.io/?https://github.com/Kartoshka548/algos/blob/master/sql/sql-star-schema-EDB.html)
     *Find out insights of Employee fact table, Department and Bonus dimensions.*
