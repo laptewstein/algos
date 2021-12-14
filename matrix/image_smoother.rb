@@ -10,19 +10,25 @@
 # For the points (0,1), (1,0), (1,2), (2,1): floor((200+200+50+200+100+100)/6) = floor(141.666667) = 141
 # For the point (1,1): floor((50+200+200+200+200+100+100+100+100)/9) = floor(138.888889) = 138
 
-class Solution(object):
-    def imageSmoother(self, M):
-        if not M: return M
-        new = [[0 for _ in range(len(M[0]))] for _ in range(len(M))]
-        directions = ((0, 0), (0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, -1), (-1, 1), (1, -1))
-        for i in range(len(new)):
-            for j in range(len(new[0])):
-                total = 0
-                count = 0
-                for r, c in directions:
-                    if i + r < 0 or j + c < 0 or i + r >= len(M) or j + c >= len(M[0]):
-                        continue
-                    total += M[i + r][j + c]
-                    count += 1
-                new[i][j] = total/count
-        return new
+class Solution
+  NEIGHBOURS = [ 
+    [-1, -1], [-1, 0], [-1, 1], 
+    [ 0, -1], [ 0, 0], [ 0, 1], 
+    [ 1, -1], [ 1, 0], [ 1, 1]].freeze
+
+  def self.image_smoother(matrix):
+    # processed_matrix = [[]*len_cols for _ in range(len_rows)]
+    row_count    = matrix.size
+    column_count = matrix[0].size
+    matrix.each_with_index do |row, horizontal_index|
+      row.each_with_index do |cell_value, vertical_index|
+        sum_all_cell_neighbours, neighbour_count = [0, 0]
+        NEIGHBOURS.each do |relative_x, relative_y|
+          neighbour_x_index = relative_x + horizontal_index
+          neighbour_y_index = relative_y + vertical_index
+          next unless matrix[neighbour_x_index][neighbour_y_index] # safe itemgetter
+          sum_all_cell_neighbours += matrix[neighbour_x_index][neighbour_y_index]
+          neighbour_count = neighbour_count.next 
+        processed_matrix[horizontal_index][vertical_index] = sum_all_cell_neighbours // neighbour_count
+    return processed_matrix
+
