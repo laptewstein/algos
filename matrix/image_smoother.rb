@@ -16,19 +16,31 @@ class Solution
     [ 0, -1], [ 0, 0], [ 0, 1], 
     [ 1, -1], [ 1, 0], [ 1, 1]].freeze
 
-  def self.image_smoother(matrix):
-    # processed_matrix = [[]*len_cols for _ in range(len_rows)]
-    row_count    = matrix.size
-    column_count = matrix[0].size
+  def self.image_smoother(matrix)
+    row_count        = matrix.size
+    processed_matrix = (0...row_count).map { Array.new }
     matrix.each_with_index do |row, horizontal_index|
-      row.each_with_index do |cell_value, vertical_index|
+      row.each_with_index do |_, vertical_index|
         sum_all_cell_neighbours, neighbour_count = [0, 0]
         NEIGHBOURS.each do |relative_x, relative_y|
           neighbour_x_index = relative_x + horizontal_index
           neighbour_y_index = relative_y + vertical_index
-          next unless matrix[neighbour_x_index][neighbour_y_index] # safe itemgetter
-          sum_all_cell_neighbours += matrix[neighbour_x_index][neighbour_y_index]
+          # negative index in ruby array means start counting from the end
+          # we need to access the values by index therefore we need to ignore negative indexes explicitly
+          next if neighbour_x_index < 0 || neighbour_y_index < 0
+          neighbour_cell_value =  matrix.dig(neighbour_x_index, neighbour_y_index)
+          # indexes outside of max row.size fetch no values and need to be filtered out 
+          next unless neighbour_cell_value
+          sum_all_cell_neighbours += neighbour_cell_value
           neighbour_count = neighbour_count.next 
-        processed_matrix[horizontal_index][vertical_index] = sum_all_cell_neighbours // neighbour_count
-    return processed_matrix
+        end
+        processed_matrix[horizontal_index] << sum_all_cell_neighbours / neighbour_count
+      end
+    end  
+    processed_matrix
+  end
+end
 
+smoothered_matrix = Solution.image_smoother([[100,200,100],[200,50,200],[100,200,100]])
+puts smoothered_matrix.inspect
+# [[137, 141, 137], [141, 138, 141], [137, 141, 137]]
