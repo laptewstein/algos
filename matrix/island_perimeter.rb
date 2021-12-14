@@ -24,23 +24,23 @@
 
 class Solution
   def self.calculate_perimeter(matrix, land = 1)
-    islands, neighbours = 0,0
+    islands, neighbours = [[], []]
     matrix.each_with_index do |row, vertical_index|
       is_bottom_row = vertical_index == matrix.size.pred
       row.each_with_index do |value, horizontal_index|
         if value == land
-          islands = islands.next
+          islands << land
           is_last_column = horizontal_index == row.size.pred
           # neighbour BELOW
           neighbor_below_is_land = matrix[vertical_index.next][horizontal_index] == land unless is_bottom_row
-          neighbours = neighbours.next if neighbor_below_is_land
+          neighbours << land if neighbor_below_is_land
           # neighbour RIGHT
           neighbor_right_is_land = row[horizontal_index.next] == land unless is_last_column
-          neighbours = neighbours.next if neighbor_right_is_land
+          neighbours << land if neighbor_right_is_land
         end
       end
     end
-    islands * 4 - neighbours * 2
+    islands.count * 4 - neighbours.count * 2
   end
 end
 
