@@ -16,6 +16,9 @@
     *Given an array of integers, find the smallest and second smallest element.*
   * [All permutations of a string charset](lists/all-permutations-of-string.py):
     *Generate all possible permutations of a given string.*
+  * [Max rectangle area](lists/max_rectangle.rb):
+    *Given an array of non-negative integers, return the area of the largest rectangle in the histogram.*
+    ![Max rectangle](lists/images/max_rectangle.jpeg)
 - **Strings**
   * [FizzBuzz](strings/fizzbuzz.py): 
     *Classics. For multiples of 3 print "Fizz"; for multiples of 5 print "Buzz". Combine for both.*
@@ -28,7 +31,7 @@
     *Land and water on an x/y map. Determine the perimeter of land surface.*
     ![Island perimeter](matrix/images/island_perimeter.png)
   * [Image smoother](matrix/image_smoother.rb): 
-    *Given image matrix with 0-255 grayscale values in each cell, blur the image using neighboring cell values.*
+    *Given 0-255 grayscale values in a matrix, blur the image using neighboring cell values.*
     ![Image Smoother](matrix/images/image_smoother.png)
 - **SQL**
   * [Star Schema](http://htmlpreview.github.io/?https://github.com/Kartoshka548/algos/blob/master/sql/sql-star-schema-EDB.html)
