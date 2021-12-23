@@ -17,7 +17,7 @@
   * [All permutations of a string charset](lists/all-permutations-of-string.py):
     *Generate all possible permutations of a given string.*
   * [Max rectangle area](lists/max_rectangle.rb):
-    *Given an array of non-negative integers, return the area of the largest rectangle in the histogram.*
+    *Given an array of integers (histogram bars), return the area of the largest rectangle.*
     ![Max rectangle](lists/images/max_rectangle.jpeg)
 - **Strings**
   * [FizzBuzz](strings/fizzbuzz.py): 
