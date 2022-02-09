@@ -47,6 +47,7 @@ def distance(blocks, requirement, relative_index, range_bound)
   distance(blocks, requirement, relative_index, range_bound.succ)
 end
 
+# One pass - O(n) complexity
 def minimize_farthest_distance(blocks, requirements)
   total_walk_score = blocks.count # total
   longest_walk     = blocks.count # for each requirement
@@ -54,18 +55,20 @@ def minimize_farthest_distance(blocks, requirements)
   blocks_to_live   = []
 
   blocks.each_with_index do |block, index|
-    # calculate minimum farthest distance for each requirement
+    # calculate minimum farthest distances for each requirement
     walk_scores = requirements.map { |req| distance(blocks, req, index, 0) }
     if walk_scores.sum < total_walk_score
       total_walk_score = walk_scores.sum
-      blocks_to_live = [ index ]
-      longest_walk   = walk_scores.max
+      blocks_to_live   = [ index ] # new lowest
+      longest_walk     = walk_scores.max
+
     elsif walk_scores.sum == total_walk_score
       if walk_scores.max < longest_walk
-        blocks_to_live = [ index ]
+        blocks_to_live = [ index ] # new lowest
         longest_walk   = walk_scores.max
+
       elsif walk_scores.max == longest_walk
-        blocks_to_live << index
+        blocks_to_live << index    # equally good
       end
     end
   end
