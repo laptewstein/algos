@@ -38,3 +38,7 @@
     *Find out insights of Employee fact table, Department and Bonus dimensions.*
   * [Cumulative values](http://htmlpreview.github.io/?https://github.com/Kartoshka548/algos/blob/master/sql/cumulative-values.html)
     *Each row below will be added to a value above*
+
+- **Eruptive**
+  * [](eruptive/minimum_farthest_distance.rb)
+  *Minimize the farthest distance we would have to walk*
