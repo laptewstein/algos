@@ -40,5 +40,5 @@
     *Each row below will be added to a value above*
 
 - **Eruptive**
-  * [](eruptive/minimum_farthest_distance.rb)
+  * [Best place to rent](eruptive/minimum_farthest_distance.rb)
   *Minimize the farthest distance we would have to walk*
