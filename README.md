@@ -19,6 +19,8 @@
   * [Max rectangle area](lists/max_rectangle.rb):
     *Given an array of integers (histogram bars), return the area of the largest rectangle.*
     ![Max rectangle](lists/images/max_rectangle.jpeg)
+  * [Product Except Self](lists/product_except_self.rb):
+    Return an product array of all the elements of nums except nums[i]  
 - **Strings**
   * [FizzBuzz](strings/fizzbuzz.py): 
     *Classics. For multiples of 3 print "Fizz"; for multiples of 5 print "Buzz". Combine for both.*
@@ -38,7 +40,7 @@
     *Find out insights of Employee fact table, Department and Bonus dimensions.*
   * [Cumulative values](http://htmlpreview.github.io/?https://github.com/Kartoshka548/algos/blob/master/sql/cumulative-values.html)
     *Each row below will be added to a value above*
-
-- **Eruptive**
-  * [Best place to rent](eruptive/minimum_farthest_distance.rb)
+- **Recursive**
+  * [Best place to rent](recursive/minimum_farthest_distance.rb)
   *Minimize the farthest distance we would have to walk*
+  
