@@ -2,6 +2,22 @@
 # return an array output such that output[i] is equal
 # to the product of all the elements of nums except nums[i].
 
+# Naive approach
+def product_except_self_division(integer_array)
+  product = integer_array.reduce(&:*)
+  integer_array.map { |el| product / el }
+end
+
+sequence = [5, 2, 3, 4]
+puts sequence.inspect
+puts product_except_self_division(sequence).inspect
+
+sequence = [5, 2, 3, 4,2,1,7]
+puts sequence.inspect
+puts product_except_self_division(sequence).inspect
+
+
+# Traverse array in both directions - O(2 * n)
 def product_except_self(integer_array)
   final_array             = []
   left_multiplied_result  = 1
@@ -25,5 +41,3 @@ puts product_except_self(sequence).inspect
 sequence = [5, 2, 3, 4,2,1,7]
 puts sequence.inspect
 puts product_except_self(sequence).inspect
-
-
