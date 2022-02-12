@@ -72,10 +72,10 @@ def minimize_farthest_distance(blocks, requirements)
       end
     end
   end
-  puts "Blocks to live: #{blocks_to_live}; total walk score: #{total_walk_score}, longest_walk: #{longest_walk}"
+  puts "Blocks to live at: #{blocks_to_live}; total walk score: #{total_walk_score}, longest_walk: #{longest_walk}"
   blocks_to_live
 end
 
 # flight
 minimize_farthest_distance(blocks, requirements)
-# Blocks to live: [4, 5]; total walk score: 1, longest_walk: 1
+# Blocks to live at: [4, 5]; total walk score: 1, longest_walk: 1
