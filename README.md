@@ -21,6 +21,8 @@
     ![Max rectangle](lists/images/max_rectangle.jpeg)
   * [Product Except Self](lists/product_except_self.rb):
     Return an product array of all the elements of nums except nums[i]  
+  * [First Missing Positive Integer](lists/first_missing_positive_integer.rb):
+    find the lowest positive integer that does not exist in the array.  
 - **Strings**
   * [FizzBuzz](strings/fizzbuzz.py): 
     *Classics. For multiples of 3 print "Fizz"; for multiples of 5 print "Buzz". Combine for both.*
