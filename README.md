@@ -45,4 +45,6 @@
 - **Recursive**
   * [Best place to rent](recursive/minimum_farthest_distance.rb)
   *Minimize the farthest distance we would have to walk*
+  * [Find correct lock password using char list](recursive/variable_length_password_generator.rb)
+  *Generate the actual passcode with minimum tries*  
   
