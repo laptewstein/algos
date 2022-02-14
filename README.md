@@ -50,4 +50,6 @@
 - **Dynamic Programming**
   * [Implement missing methods](dynamic_programming/enclosed_itemgetter_methods.py)
   *Enclosed (wrapped) functions with memoization*
+  * [Intern interviews](dynamic_programming/interview_practice_valerochka.py)
+  *Random logical riddles and puzzles for the whole family*
   
