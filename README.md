@@ -23,6 +23,8 @@
     Return an product array of all the elements of nums except nums[i]  
   * [First Missing Positive Integer](lists/first_missing_positive_integer.rb):
     find the lowest positive integer that does not exist in the array.  
+  * [merge multiple sorted lists](lists/merge_sorted_lists.py):
+    Traverse multiple sorted arrays at once with *heapq* and _while_.  
 - **Strings**
   * [FizzBuzz](strings/fizzbuzz.py): 
     *Classics. For multiples of 3 print "Fizz"; for multiples of 5 print "Buzz". Combine for both.*
