@@ -47,6 +47,8 @@
 - **Recursive**
   * [Best place to rent](recursive/minimum_farthest_distance.rb)
   *Minimize the farthest distance we would have to walk*
+  * [Number of ways to decode data](recursive/number_of_ways_to_decode_data.rb)
+  *11121 and a=1,b=2, ... z=26*
   * [Find correct lock password using char list](recursive/variable_length_password_generator.rb)
   *Generate the actual passcode with minimum tries*  
 - **Dynamic Programming**
