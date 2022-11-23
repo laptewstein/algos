@@ -20,7 +20,7 @@ message = "Hello from Toronto".downcase.split
 
 # O(number of words)
 def preprocess_string(magazine)
-  hash = {}.tap do |h|
+  {}.tap do |h|
     magazine.each do |word|
       h[word] ||= 0          # initialize counter if not found
       h[word] = h[word].succ # increment count per word
