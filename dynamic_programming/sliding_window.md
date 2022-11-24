@@ -1,4 +1,4 @@
-# https://gist.github.com/Whitespace/8da24419555093fa26ea3abe5d5f2d9e
+#### https://gist.github.com/Whitespace/8da24419555093fa26ea3abe5d5f2d9e
 
 ## Pitch
 We want to write a service/class that allows us to add and count the number of events received in the last `W` milliseconds where `W` is defined by the user.
@@ -80,14 +80,14 @@ It is **guaranteed** that every call to `add` uses a strictly larger value of `e
 require 'pp'
 
 class EventsCounter
-  def initialize(timeframeMS)
-    @window_end   = timeframeMS
+  def initialize(window)
+    @window_width = window
     @window_start = 0
     @storage      = []
   end
 
   def add(eventTimeMS)
-    @window_start = eventTimeMS - @window_end
+    @window_start = eventTimeMS - @window_width
     @storage << eventTimeMS
     @storage = @storage.select { |event| event > @window_start }
   end
