@@ -19,29 +19,49 @@ magazine = [
 message = "Hello from Toronto".downcase.split
 
 # O(number of words)
-def preprocess_string(magazine)
-  {}.tap do |h|
-    magazine.each do |word|
-      h[word] ||= 0          # initialize counter if not found
-      h[word] = h[word].succ # increment count per word
+def preprocess_data(list_of_strings)
+  {}.tap do |hash|
+    list_of_strings.each do |word|
+      hash[word] ||= 0          # initialize counter if not found
+      hash[word] = h[word].succ # increment count per word
     end
   end
 end
 
-# O(num of words in message * number of words in magazine)
+# O(number of words in message * number of words in magazine)
 def message_reconstruction_is_possible?(article, message)
-  counters = preprocess_string(article)
-  message.select do |word|
-    count = counters[word]
-    next false unless counters[word]
-    if count.pred == 0
+  counters = preprocess_data(article)
+  message.each do |word|
+    word_count = counters[word]
+    return false unless word_count
+    if word_count.pred == 0
       counters.delete word
-      next true
+    else
+      counters[word] = word_count.pred
     end
-    counters[word] = count.pred
-    true
-  end.count == message.count
+  end
+  true
 end
 
+# return [boolean, list of matched words]
+# O(number of words in message * number of words in magazine)
+def message_reconstruction_is_possible_include_matches?(article, message)
+  counters = preprocess_string(article)
+  matches = message.select do |word|
+    word_count = counters[word]
+    next unless word_count
+    if word_count.pred == 0
+      counters.delete word
+    else
+      counters[word] = word_count.pred
+    end
+    true
+  end
+  [matches.count == message.count, matches]
+end
+
+
 puts message_reconstruction_is_possible?(magazine, message)
+import 'pp'
+PP.pp message_reconstruction_is_possible_include_matches?(magazine, message)
 
