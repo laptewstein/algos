@@ -28,7 +28,7 @@ def preprocess_data(list_of_strings)
   end
 end
 
-# O(number of words in message * number of words in magazine)
+# O(number of words in message + number of words in magazine)
 def message_reconstruction_is_possible?(article, message)
   counters = preprocess_data(article)
   message.each do |word|
