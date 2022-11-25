@@ -8,9 +8,11 @@ def find_duplicate(nums)
   # no duplicates found (n * (n + 1) / 2)
   return -1 if nums.count * nums.count.succ / 2 == nums.reduce(&:+)
 
-  tortoise = nums.first
-  hare     = nums.first
-  # we are looking for the node (index) where fast and slow pointers converge 
+  # advance pointers manually from index 0
+  tortoise = nums[nums.first]
+  hare     = nums[nums[nums.first]]
+
+  # we are looking for the node (index) where fast and slow pointers converge
   until tortoise == hare
     tortoise = nums[tortoise]
     hare     = nums[nums[hare]]
@@ -22,7 +24,6 @@ def find_duplicate(nums)
   # We are going to iterate one more time over the array, this time with two slow (one step) pointers
   # starting at the begining of the array and the node (index) where slow and fast pointers converged.
   # When both point to the same node, it would mean we have found the duplicate element.
-
   snail = nums.first
   until tortoise == snail 
     snail    = nums[snail]
