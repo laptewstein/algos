@@ -10,11 +10,10 @@ def find_duplicate(nums)
 
   tortoise = nums.first
   hare     = nums.first
-  while true
+  # we are looking for the node (index) where fast and slow pointers converge 
+  until tortoise == hare
     tortoise = nums[tortoise]
     hare     = nums[nums[hare]]
-    # we have found the node (index) where fast and slow pointers converge 
-    break if tortoise == hare
   end
 
   # distance from beginning of the list to start of the loop (duplicate element)  
