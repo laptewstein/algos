@@ -44,7 +44,7 @@ def message_reconstruction_is_possible?(article, message)
 end
 
 # return [boolean, list of matched words]
-# O(number of words in message * number of words in magazine)
+# O(number of words in message + number of words in magazine)
 def message_reconstruction_is_possible_include_matches?(article, message)
   counters = preprocess_data(article)
   matches = message.select do |word|

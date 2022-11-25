@@ -1,3 +1,4 @@
+# Floyd's https://en.wikipedia.org/wiki/Cycle_detection
 # sum from 1..n: n * (n + 1) / 2
 # integer_array = [1, 3, 3, 4, 2, 5]
 # sum_of_ideal_array = integer_array.count * integer_array.count.succ / 2
@@ -7,21 +8,28 @@ def find_duplicate(nums)
   # no duplicates found (n * (n + 1) / 2)
   return -1 if nums.count * nums.count.succ / 2 == nums.reduce(&:+)
 
-  tortoise = nums[0]
-  hare = nums[0]
+  tortoise = nums.first
+  hare     = nums.first
   while true
     tortoise = nums[tortoise]
-    hare = nums[nums[hare]]
+    hare     = nums[nums[hare]]
+    # we have found the node (index) where fast and slow pointers converge 
     break if tortoise == hare
   end
 
-  ptr1 = nums[0]
-  ptr2 = tortoise
-  while ptr1 != ptr2 do
-    ptr1 = nums[ptr1]
-    ptr2 = nums[ptr2]
+  # distance from beginning of the list to start of the loop (duplicate element)  
+  # equals to the distance between where fast and slow pointers converged and the start of the loop.
+
+  # We are going to iterate one more time over the array, this time with two slow (one step) pointers
+  # starting at the begining of the array and the node (index) where slow and fast pointers converged.
+  # When both point to the same node, it would mean we have found the duplicate element.
+
+  snail = nums.first
+  until tortoise == snail 
+    snail    = nums[snail]
+    tortoise = nums[tortoise]
   end
-  ptr1
+  tortoise
 end
 
 require 'rspec/autorun'
