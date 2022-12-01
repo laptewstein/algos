@@ -1,5 +1,4 @@
 # https://leetcode.com/problems/coin-change/
-  
 # You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
 
 # Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
@@ -34,6 +33,7 @@ puts coin_change_top_down([3, 5, 7], 4)      == -1
 puts coin_change_top_down([1, 2, 5, 10], 43) == 6
 
 # --------------------------------------------------
+
 # bottom-up technique (prepopulate array with data and work upwards from the lowest amount)
 # identical to perfect squares
 def coin_change_bottom_up(coins, amount)
