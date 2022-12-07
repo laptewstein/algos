@@ -25,6 +25,8 @@
     find the lowest positive integer that does not exist in the array.  
   * [merge multiple sorted lists](lists/merge_sorted_lists.py):
     Traverse multiple sorted arrays at once with *heapq* and _while_.  
+  * [seesaw / wave sort](lists/sort_in_waves.rb)
+    Sort array in place such as lower value follows a higher value which is then followed by a higher value again.
 - **Strings**
   * [FizzBuzz](strings/fizzbuzz.py): 
     *Classics. For multiples of 3 print "Fizz"; for multiples of 5 print "Buzz". Combine for both.*
