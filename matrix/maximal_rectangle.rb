@@ -77,3 +77,86 @@ puts maximal_rectangle matrix
 #   4  0  0  3  0
 # =================
 # => 6
+
+
+# using left lesser, right lesser, and width arrays which keep reference to boundaries and max width of each height
+def max_rectangle_area(histogram)
+  return 0 if histogram.empty?
+
+  puts ">> " + histogram.inspect # [ 3, 1, 3, 2, 2]
+  histogram_size = histogram.size
+  out_of_bound = 0.pred
+
+  # initialize arrays with Out-Of-Bounds pointers
+  left  = Array.new(histogram_size) { out_of_bound }   # first index - 1
+  right = Array.new(histogram_size) { histogram_size } # last index + 1
+
+  # 1) For every element, find the left boundary (smaller element than current) if it exists
+  (1...histogram_size).each do |idx|
+    left_idx = idx.pred
+
+    # keep going left to detect lower previous height
+    until left_idx == out_of_bound || histogram[left_idx] < histogram[idx]
+      # left_idx = left[left_idx]
+      left_idx = left_idx.pred
+    end
+    left[idx] = left_idx
+  end
+
+  # 2) For every element, find the right boundary (smaller element than current) if it exists
+  (histogram_size - 2).step(0, -1).each do |idx| # from n-1 to 0 with step 1
+    right_idx = idx.succ
+    until right_idx == histogram_size || histogram[idx] > histogram[right_idx]
+      # right_idx = right[right_idx]
+      right_idx = right_idx.succ
+    end
+    right[idx] = right_idx
+  end
+
+  puts "r: " + right.inspect # [ 1,  5, 3, 5, 5]
+  puts "l: " + left.inspect  # [-1, -1, 1, 1, 1]
+
+  # 3) Calculate max area by taking element as the height,
+  # and width as difference between left and right boundaries
+
+  # (-) a: ruby-way
+  # widths = (0...histogram_size).map { |idx| right[idx].pred - left[idx] }  # [1, 5, 1, 3, 3]
+  # widths.zip(heights).map {|r| r.inject(:*) }.max
+
+  # (+) b: traditional way, sort of (or comply with "max = local_max if max < local_max")
+  widths = []
+  maximal_rectangles = (0...histogram_size).map do |idx|
+    width = right[idx].pred - left[idx]
+    widths << width
+    width * histogram[idx]
+  end
+
+  puts "w " + widths.inspect
+
+  maximal_rectangles.max
+end
+
+matrix = [
+  ["1", "0", "1", "0", "0"],
+  ["1", "0", "1", "1", "1"],
+  ["1", "1", "1", "1", "1"],
+  ["1", "0", "0", "1", "0"]
+]
+
+puts maximal_rectangle matrix
+
+#   1  0  1  0  0
+#   1  0  1  1  1
+#   1  1  1  1  1
+#   1  0  0  1  0
+# -----------------
+#   1  0  1  0  0
+#   2  0  2  1  1
+#   3  1  3  2  2
+#   4  0  0  3  0
+# =================
+# >> [3, 1, 3, 2, 2]
+# r: [1, 5, 3, 5, 5]
+# l: [-1, -1, 1, 1, 1]
+# w  [1, 5, 1, 3, 3]
+# => 6
