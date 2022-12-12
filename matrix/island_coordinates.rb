@@ -1,6 +1,20 @@
-# Find the top left and bottom right coordinates of a rectangle of 0's within a matrix of 1's. 
-# It's essentially a modified version of the finding the number of island problem where you only need to dfs to the right and down.
+#Find the top left and bottom right coordinates of a rectangle of 0's within a matrix of 1's. It's essentially a modified version of the finding the number of island problem where you only need to dfs to the right and down.
+# Ex.
+# [[ 1, 1, 1, 1],
+# [ 1, 0, 0, 1],
+# [ 1, 0, 0, 1],
+# [ 1, 1, 1, 1]]
+# Expected output: [[1,1], [2,2]]
 
+# Follow up question: Expand it so it works for any number of rectangles. I ran out of time to code this part so get throught the first part quickly. Main part of this problem is updating how results are stored and tracking what's been seen.
+# Ex.
+# [[0, 1, 1, 1],
+# [1, 0, 0, 1],
+# [1, 0, 0, 1],
+# [1, 1, 1, 1]]
+# Expected output: [ [[0,0],[0,0]], [[1,1], [2,2]] ]
+
+# O(m * n)
 def island_coordinates(grid)
   landmass, void = 0, 1
   coordinates = []
