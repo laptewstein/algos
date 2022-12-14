@@ -1,5 +1,4 @@
 # Vlad Milshtein, Dec 13th 2022
-# Huntress / tech round
 
 # 1) playing cards
 # =================
@@ -58,7 +57,7 @@ puts sum_cards(["HT", "D5", "CA"]) == 23
 # ----------------------------------
 
 
-2) sql task
+# 2) sql task
 # =================
 # Greetings SQL Guru!
 #
@@ -155,17 +154,17 @@ puts average_age_within_range(dataset, 15...55).inspect
 # ----------------------------------
 
 
-3) happy (lucky) numbers:
+# 3) happy (lucky) numbers:
 # =================
 # Full disclosure: I've solved this before. 
 
-https://github.com/Kartoshka548/algos/blob/master/two_pointers/fast_slow_tortoise_and_hare/squares_of_digits_cycle.rb
+# https://github.com/Kartoshka548/algos/blob/master/two_pointers/fast_slow_tortoise_and_hare/squares_of_digits_cycle.rb
 
-In a few words, this is a variation of: 
-- Floyd's cycle detection algorithm (a classic linked list question!), in compressed form (no requirement of detection of the node where cycle begins. See https://github.com/Kartoshka548/algos/blob/master/two_pointers/fast_slow_tortoise_and_hare/find_duplicate_in_array.rb#L21-L22
-- And the square of a num is a simple while loop stripping the last digit with modulo in each stroke, until num == 0.
+# In a few words, this is a variation of: 
+#   - Floyd's cycle detection algorithm (a classic linked list question!), in compressed form (no requirement of detection of the node where cycle begins. See https://github.com/Kartoshka548/algos/blob/master/two_pointers/fast_slow_tortoise_and_hare/find_duplicate_in_array.rb#L21-L22
+    - And the square of a num is a simple while loop stripping the last digit with modulo in each stroke, until num == 0.
 
-********
-You're certainly more than welcomed to take a look at any other algo in that repo (there are more in each folder than what readme.md links to) - and reach out with questions! :-)
+# ********
+# You're certainly more than welcomed to take a look at any other algo in that repo (there are more in each folder than what readme.md links to) - and reach out with questions! :-)
 # ----------------------------------
 
