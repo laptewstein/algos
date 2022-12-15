@@ -90,8 +90,8 @@ dataset = CSV.parse(data, headers: true)
 def group_by_state(rows)
   rows
     .group_by { |record| record['state'] }
-    .map { |state, records| [state, records.count] }
-    .sort_by { |_, count| -1 * count }
+    .map      { |state, records| [state, records.count] }
+    .sort_by  { |_, count| -1 * count }
 end
 
 puts group_by_state(dataset).inspect
