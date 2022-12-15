@@ -24,18 +24,24 @@
 # All elements in nums1 and nums2 are unique.
 # The length of both nums1 and nums2 would not exceed 1000.
 
-class Solution(object):
-    def nextGreaterElement(self, findNums, nums):
-        """
-        :type findNums: List[int]
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        stk, lookup = [], {}
-        for num in nums:
-            while stk and num > stk[-1]:
-                lookup[stk.pop()] = num
-            stk.append(num)
-        while stk:
-            lookup[stk.pop()] = -1
-        return map(lambda x : lookup[x], findNums)
+def next_greater_element(nums1, nums2)
+  stack = []
+  hash = {}
+  # go backwards from end of the array
+  nums2.count.pred.step(0, -1).each do |idx|
+    num = nums2[idx]
+    unless stack.empty?
+      # iterate over stack elements backwards from the most recently added item to the oldest
+      # detect if we have seen an element higher than current.
+      # keep it on the stack.
+      greater_element_idx = stack.count.pred.step(0, -1).detect { |i| stack[i] > num }
+      hash[num] = stack[greater_element_idx] if greater_element_idx
+    end
+    stack << num
+  end
+  nums1.map { |num| hash[num] || -1 }
+end
+
+puts next_greater_element([4, 1, 2], [1, 3, 4, 2]) == [-1, 3, -1]
+puts next_greater_element([2, 4], [1, 2, 3, 4]) == [3, -1]
+puts next_greater_element([1, 3, 5, 2, 4], [6, 5, 4, 3, 2, 1, 7]) == [7, 7, 7, 7, 7]
