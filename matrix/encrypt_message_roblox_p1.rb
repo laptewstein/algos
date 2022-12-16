@@ -43,11 +43,11 @@ message2 = "1.21 gigawatts!"
 def transpose(message, rows, cols)
   # matrix = []
   # rows.times do |r|
-  #   cols.times do |c|
-  #     matrix[r] = Array.new()
-  #   end
+  #   matrix[r] = Array.new(cols)
   # end
-  matrix = Array.new(rows) { Array.new(cols) }
+
+  # matrix = Array.new(rows) { Array.new(cols) }
+  matrix = (0..rows).map { Array.new(cols) }
   idx = 0
 
   # fill the matrix
