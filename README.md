@@ -87,7 +87,6 @@
 │   ├── perfect_squares.rb
 │   ├── playing_cards_and_csv_converter.rb
 │   └── sliding_window.md
-├── floyd_tortoise_hare
 ├── lists
 │   ├── all-permutations-of-string.py
 │   ├── array_sum_pairs.py
