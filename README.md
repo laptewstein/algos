@@ -59,3 +59,78 @@
   * [Intern interviews](dynamic_programming/interview_practice_valerochka.py)
   *Random logical riddles and puzzles for the whole family*
   
+#### Tree:
+├── README.md
+├── bfs
+│   └── racecar.rb
+├── binary_search
+│   └── koko_eating_bananas.rb
+├── cyclic_sort
+│   └── find_duplicates_in_array.rb
+├── dynamic_programming
+│   ├── car_pooling.rb
+│   ├── coin_change_bottom_up.rb
+│   ├── coin_change_top_down.rb
+│   ├── enclosed_itemgetter_methods.py
+│   ├── encrypt_message_roblox_p2.rb
+│   ├── find_duplicates_in_array.rb
+│   ├── find_words_in_stream.rb
+│   ├── flip_doors.rb
+│   ├── gas_stations.rb
+│   ├── integer_to_roman.rb
+│   ├── interview_practice_valerochka.py
+│   ├── kth_permutation.py
+│   ├── kth_permutation.rb
+│   ├── maximum_profit_in_job_scheduling.rb
+│   ├── median_finder.rb
+│   ├── perfect_squares.rb
+│   ├── playing_cards_and_csv_converter.rb
+│   └── sliding_window.md
+├── floyd_tortoise_hare
+├── lists
+│   ├── all-permutations-of-string.py
+│   ├── array_sum_pairs.py
+│   ├── balanced_parentheses.py
+│   ├── bubble_sort.py
+│   ├── fibonacci.py
+│   ├── find-missing-element.py
+│   ├── first_missing_positive_from_unsorted_array.rb
+│   ├── first_missing_positive_integer.rb
+│   ├── largest-continuous-sum.py
+│   ├── max_rectangle.rb
+│   ├── merge_sorted_lists.py
+│   ├── move_zeroes_to_end_of_array.rb
+│   ├── next-higher-number-with-same-digits.py
+│   ├── next_greater_element_two_arrays_using_stack.rb
+│   ├── product_except_self.rb
+│   ├── range_addition.rb
+│   ├── remove_nth_node_from_end_of_list.rb
+│   ├── second_smallest-in-array.py
+│   ├── sort_in_waves.rb
+│   ├── sum_two_linked_list_nodes.rb
+│   └── toggle_doors.rb
+├── matrix
+│   ├── count_all_submatrices.rb
+│   ├── count_islands.rb
+│   ├── encrypt_message_roblox_p1.rb
+│   ├── image_smoother.rb
+│   ├── island_coordinates.rb
+│   ├── island_perimeter.rb
+│   └── maximal_rectangle.rb
+├── recursive
+│   ├── max_coins.rb
+│   ├── minimum_farthest_distance.rb
+│   ├── number_of_ways_to_decode_data.rb
+│   └── variable_length_password_generator.rb
+├── sql
+│   ├── cumulative-values.html
+│   └── sql-star-schema-EDB.html
+├── strings
+│   ├── fizzbuzz.py
+│   ├── increment_excel_columns.py
+│   └── rle.py
+└── two_pointers
+    ├── fast_slow_tortoise_and_hare
+    │   ├── find_duplicate_in_array.rb
+    │   └── squares_of_digits_cycle.rb
+    └── trapping_rain_water.rb
