@@ -116,6 +116,7 @@
 │   ├── image_smoother.rb
 │   ├── island_coordinates.rb
 │   ├── island_perimeter.rb
+│   ├── rotate.rb
 │   └── maximal_rectangle.rb
 ├── recursive
 │   ├── max_coins.rb
