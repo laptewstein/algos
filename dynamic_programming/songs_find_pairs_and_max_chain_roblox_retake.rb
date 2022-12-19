@@ -128,6 +128,32 @@ puts findPair(song_times_5)
 # => match: ["Going to California", "Celebration Day"]
 puts '-----'
 
+# Alternative solution using duration (string keys) opposed to seconds (integer keys), and song list inversion istead of creating new song hash
+def findPair(song_list)
+  limit_in_secs = 7 * 60
+  matches = []
+  seen = []
+  hash = song_list.to_h.invert
+  song_list.each do |title, duration|
+    seen << title
+    minutes, seconds     = duration.split(':').map(&:to_i)
+    remaining_seconds    = limit_in_secs - minutes * 60 - seconds
+    missing_seconds      = "#{remaining_seconds % 60}"
+    missing_seconds      = "0#{missing_seconds}" unless missing_seconds.length == 2
+    second_song_duration = "#{remaining_seconds / 60}:#{missing_seconds}"
+    second_tune          = hash[second_song_duration]
+    if second_tune
+      matches << [title, second_tune] unless seen.include?(hash[second_song_duration])
+    end
+  end
+  if matches.empty?
+    "No matches"
+  else
+    matches.map { |match| puts "match: #{match.inspect}" }
+  end
+end
+
+
 # (2nd part) 
 =begin
 Our local radio station is running a show where the songs are ordered in a very specific way.  The last word of the title of one song must match the first word of the title of the next song - for example, "Silent Running" could be followed by "Running to Stand Still".  No song may be played more than once.
