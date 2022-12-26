@@ -1,13 +1,10 @@
 def square_root(number, precision = 8)
-  orig_number, answer = number, 0
-  solution_found = false
+  root        = 0
   zero_count  = Math::log10(number).to_i # or .floor
-  # 34 -> 34, 34_45 -> 34, 34_89_09 -> 34 | 3_45_67 -> 3
   zero_count  -= 1 if zero_count.odd?
   denominator = 10 ** zero_count
-  iteration   = number / denominator # first 1/2 leftmost argument digits
+  iteration   = number / denominator # first 1 or 2 leftmost digits of argument
   number      %= denominator
-  root        = 0
 
   # NIT: binary search?
   until (root.succ * root.succ) > iteration
@@ -18,10 +15,10 @@ def square_root(number, precision = 8)
   number    = (remainder * denominator) + (number % denominator)
   answer    = root
 
-  resolved = number == 0 && zero_count < 2
+  solution_found = number == 0 && zero_count < 2
   dot, remaining_iterations = 1, precision
 
-  until (number == 0 && resolved) || remaining_iterations == 0
+  until (number == 0 && solution_found) || remaining_iterations == 0
     zero_count -= 2 if zero_count > 1
     iteration = zero_count > 0 ? number / (10 ** zero_count) : number
 
@@ -31,26 +28,25 @@ def square_root(number, precision = 8)
       remaining_iterations    -= 1
     end
 
-    multiplicand = -1
-    until (20 * answer + multiplicand.succ) * multiplicand.succ > iteration
-      multiplicand += 1
+    last_digit = -1
+    until (20 * answer + last_digit.succ) * last_digit.succ > iteration
+      last_digit += 1
     end
 
-    iteration -= (20 * answer + multiplicand) * multiplicand
-    answer    = answer * 10 + multiplicand
+    iteration -= (20 * answer + last_digit) * last_digit
+    answer    = answer * 10 + last_digit
 
-    number    = iteration * (10 ** zero_count) + number % (10 ** zero_count) 
-    resolved  = true if number == 0
+    number    = iteration * (10 ** zero_count) + number % (10 ** zero_count)
+    solution_found = true if number == 0
   end
   (answer * dot).round(precision)
 end
 
-
-# ======== 
+# --------------
 examples = [
   1,
   3,
-  34
+  34,
   81,
   100,
   4_00,
