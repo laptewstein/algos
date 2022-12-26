@@ -2,7 +2,7 @@ def square_root(number, precision = 8)
   orig_number, answer = number, 0
   solution_found = false
   zero_count  = Math::log10(number).to_i # or .floor
-  # 34 -> 34, 3445 -> 34, 34_89_09 -> 34 | 3_45_67 -> 3
+  # 34 -> 34, 34_45 -> 34, 34_89_09 -> 34 | 3_45_67 -> 3
   zero_count  -= 1 if zero_count.odd?
   denominator = 10 ** zero_count
   iteration   = number / denominator # first 1/2 leftmost argument digits
@@ -46,7 +46,24 @@ def square_root(number, precision = 8)
 end
 
 
-examples = [1, 3, 34, 81, 100, 4_00, 3_40, 16_00, 2025, 34_45, 20250, 3_45_67, 34_56_78, 3_45_67_89, 29_50_77_10_41]
+# ======== 
+examples = [
+  1,
+  3,
+  34
+  81,
+  100,
+  4_00,
+  3_40,
+  16_00,
+  2025,
+  34_45,
+  20250,
+  3_45_67,
+  34_56_78,
+  3_45_67_89,
+  29_50_77_10_41
+]
 
 examples.each do |number|
   puts "Square root of #{number} is #{square_root(number)}"
