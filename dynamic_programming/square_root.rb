@@ -1,5 +1,5 @@
 def square_root(number, precision = 8)
-  # if argument is float, find out # of decimal points (for later use)
+  # if argument is float, find out          # of decimal points (for later use)
   decimal_places = 0
   decimal_number = number
   until decimal_number.to_i == decimal_number
@@ -8,7 +8,7 @@ def square_root(number, precision = 8)
   end if number.is_a?(Float)
 
   root        = 0
-  zero_count  = Math::log10(number).to_i # or .floor
+  zero_count  = Math::log10(number).to_i    # or .floor
   zero_count  -= 1 if zero_count.odd?
   denominator = 10 ** zero_count
   iteration   = (number / denominator).to_i # first 1 or 2 leftmost digits of argument
@@ -32,7 +32,7 @@ def square_root(number, precision = 8)
     iteration = zero_count > 0 ? number / (10 ** zero_count) : number
     if number > 0 && (answer * 2 >= iteration.to_i)
       iteration               *= 100
-      number                  = number * 100
+      number                  *= 100
       dot                     *= 0.1
       remaining_iterations    -= 1
     end
