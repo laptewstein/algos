@@ -1,3 +1,7 @@
+# padded serialization (nil nodes children grow as we get closer to the base)
+# NOTE: not a leetcode serialization due to required padding (nil values)
+
+# ---------------------
 class TreeNode
   attr_accessor :val, :left, :right
 
@@ -6,9 +10,9 @@ class TreeNode
       @left, @right = nil, nil
   end
 end
+# ---------------------
 
 # hydrate (recreate) a tree from a string
-# NOTE: not a leetcode serialization due to required padding (nil values)
 def deserialize_padded_level_order(sequence, nil_value: 'N', separator: ",")
   node_values = sequence
     .split(separator)
@@ -45,13 +49,79 @@ def deserialize_padded_level_order(sequence, nil_value: 'N', separator: ",")
   end
 end
 
+# serialize a tree (dehydrate into a string)
+def serialize_tree_level_order(root, nil_value: 'N', separator: ',')
+  queue, output = [root], []
+  until queue.all? { |elem| elem.nil? } # until the queue is not empty
+    current = queue.shift
+    if current.nil?            # no node?
+      output << nil_value
+      2.times { queue << nil } # each empty node has 2 empty children
+    else
+      queue << (current.left if current.left)   # left
+      queue << (current.right if current.right) # right
+      output << current.val                     # store value to output
+    end
+  end
+  output.join(separator)
+end
+
+
 unbalanced_bigger_tree = [
   41, 30, 55, 26, 32, 51, 69, nil, nil, nil, nil, 47, 52, 64, 
   72, nil, nil, nil, nil, nil, nil, nil, nil, 45, 48, nil, nil, 
   nil, nil, nil, 76
 ].map { |v| v || 'N' }.join(",")
-
 tree = deserialize_padded_level_order(unbalanced_tree)
+
+
+serialized_tree = "3,5,1,6,2,0,8,N,N,7,4"
+tree_root       = deserialize_level_order(serialized_tree)
+tree            = serialize_tree_level_order(tree_root)
+
+puts pretty_print(tree)
+puts "BFS traversal (retain queue): #{tree}"
+# ________________________________________________________________
+#                                3
+#                5                               1
+#        6               2               0               8
+#    •       •       7       4       •       •       •       •
+#  •   •   •   •   •   •   •   •   •   •   •   •   •   •   •   •
+# ================================================================
+# 3,5,1,6,2,0,8,N,N,7,4,N,N,N,N,N,N,N,N
+# BFS traversal (drain queue): 3,5,1,6,2,0,8,N,N,7,4,N,N,N,N,N,N,N,N
+
+# ________________________________
+#                3
+#        5               1
+#    6       2       0       8
+#  •   •   7   4   •   •   •   •
+# ================================
+# 3,5,1,6,2,0,8,N,N,7,4
+# BFS traversal (retain queue): 3,5,1,6,2,0,8,N,N,7,4
+
+
+# another attempt of serialization (dehydration, compression for archival/transmisson)
+def serialize_level_order(root, nil_value: 'N', separator: ',')
+  serialization = []
+  queue = [root]
+  until queue.empty?
+    member = queue.shift
+    if member
+      serialization << member.val
+      queue << member.left
+      queue << member.right
+    else
+      serialization << nil_value
+    end
+  end
+  serialization.join(separator)
+end
+
+tree = serialize_level_order(tree_root)
+puts pretty_print(tree)
+puts "BFS traversal (drain queue): #{tree}"
+
 
 # count number of non-nil nodes
 def tree_size(root)
@@ -70,12 +140,14 @@ end
 puts "Tree Size: #{tree_size(tree)} nodes"
 puts tree_size(tree) == unbalanced_bigger_tree.compact.count # => 14
 
+
 # longest chain of non-empty nodes, 0 if only root is present.
 def tree_depth(root, depth = 0)
   return depth unless root
   return depth if root.left.nil? && root.right.nil?
   [tree_depth(root.left, depth.succ), tree_depth(root.right, depth.succ)].max
 end
+
 
 # longest chain of non-empty nodes, 0 if only root is present.
 def tree_max_height(root)
@@ -88,6 +160,7 @@ puts "Tree Depth: #{tree_depth(tree)} levels"
 [tree, tree.left, tree.right].each do |node|
   puts tree_depth(node) == tree_max_height(node)
 end
+
 
 # tree is considered balanced when their depth difference does not exceed 1 
 # nodes may be allowed to have leaves (children) but not <children of children>

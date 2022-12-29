@@ -1,4 +1,6 @@
 # visualize a search tree
+
+# leetcode style padding (nil-savvy)
 def pretty_print(serialized_tree, nil_value: 'N', separator: ",")
   # split 1D array ito n-D array, a tree with [root, [2 * child nodes], [4 * children] ...]
   split_array_into_levels = lambda do |node_values|
@@ -22,13 +24,116 @@ def pretty_print(serialized_tree, nil_value: 'N', separator: ",")
     tree
   end
 
+  pad_missing_nodes = lambda do |node_values|
+    padded_node_values  = []
+    last_iterable_index = node_values.size - 2
+    queue               = [node_values.first]
+    idx = queue.size    # 0 => root, 1 => left, 2 => right
+    until queue.all? { |e| e.nil? } && idx > last_iterable_index
+      node = queue.shift
+      if node
+        queue << node_values[idx] << node_values[idx.succ]
+        idx += 2
+      else
+        queue << node << node
+      end
+      padded_node_values << node
+    end
+    padded_node_values
+  end
+
   cleansed_node_values = serialized_tree
-  .split(separator)
-  .map { |node_value| node_value.to_i unless node_value == nil_value } # integer or nil
+    .split(separator)
+    .map { |node_value| node_value.to_i unless node_value == nil_value } # integer or nil
+  return unless cleansed_node_values.size > 0
+
+  padded_node_values   = pad_missing_nodes.call(cleansed_node_values)
+  tree                 = split_array_into_levels.call(padded_node_values)
+  
+  # total space in the last level (max spacing of each node: 4)
+  max_width = tree.last.length * 4
+
+  # expects nD array, a tree with [root, [2 * child nodes], [4 * n]...]
+  print_tree = lambda do |tree|
+    tree.each_with_index do |subarray, level|
+      indent = max_width / (2 ** level.succ)
+      spacer = max_width / (2 ** level)
+      subarray.each_with_index do |element, idx|
+        element = "•" unless element
+        printf("%*s", idx == 0 ? indent : spacer, element)
+      end
+      printf("\n")
+    end
+  end
+
+  puts "_" * max_width
+  print_tree[tree]
+  puts "=" * max_width
+  serialized_tree
+end
+
+leetcode = [5,4,7,3,nil,2,nil,-1,nil,9]
+puts pretty_print(leetcode.map { |v| v || 'N' }.join(","))
+
+# ________________________________
+#                5
+#        4               7
+#    3       •       2       •
+# -1   •   •   •   9   •   •   •
+# ================================
+# 5,4,7,3,N,2,N,-1,N,9
+
+unbalanced_bigger_tree = [
+  41, 30, 55, 26, 32, 51, 69, nil, nil, nil, nil, 47, 52, 64,
+  72, 45, 48, nil, nil,
+  nil, nil, nil, 76
+]
+
+puts pretty_print(unbalanced_bigger_tree.map { |v| v || 'N' }.join(","))
+
+# ________________________________________________________________
+#                               41
+#               30                              55
+#       26              32              51              69
+#    •       •       •       •      47      52      64      72
+#  •   •   •   •   •   •   •   •  45  48   •   •   •   •   •  76
+# ================================================================
+# 41,30,55,26,32,51,69,N,N,N,N,47,52,64,72,45,48,N,N,N,N,N,76
+
+
+
+
+
+def pretty_print_padded(serialized_tree, nil_value: 'N', separator: ",")
+  # split 1D array ito n-D array, a tree with [root, [2 * child nodes], [4 * children] ...]
+  split_array_into_levels = lambda do |node_values|
+    tree, level = [], []
+    level_idx     = tree.size
+    level_members = 2 ** level_idx
+    node_values.each do |node_value|
+      level << node_value
+      next unless level.size == level_members
+
+      tree << level
+      level          = []
+      level_members *= 2
+      level_idx     += 1
+    end
+    # dangling level, fill missing slots with nulls
+    if level.size > 0
+      level << nil until level.size == level_members
+      tree << level
+    end
+    tree
+  end
+
+  cleansed_node_values = serialized_tree
+    .split(separator)
+    .map { |node_value| node_value.to_i unless node_value == nil_value } # integer or nil
   return unless cleansed_node_values.size > 0
   tree = split_array_into_levels.call(cleansed_node_values)
   
-  # total space in the last level (max spacing of each node: 3)
+  # total space in the last level (max spacing of each node: 4)
   max_width = tree.last.length * 4
 
   # expects nD array, a tree with [root, [2 * child nodes], [4 * n]...]
