@@ -78,3 +78,39 @@ puts is_balanced?(tree.right.right)               # => true
 # true
 # false
 # true
+
+#------------------------------------------
+def invert_tree(root)
+  return unless root
+  root.left, root.right = root.right, root.left
+  invert_tree(root.right)
+  invert_tree(root.left)
+  root
+end
+
+# serialized_tree = '41,30,55,26,32,51,69,N,N,N,N,47,52,64,72,45,48,N,N,N,N,N,76'
+# puts pretty_print(serialized_tree, &expand_missing_leaves)
+# ________________________________________________________________
+#                               41
+#               30                              55
+#       26              32              51              69
+#    •       •       •       •      47      52      64      72
+#  •   •   •   •   •   •   •   •  45  48   •   •   •   •   •  76
+# ================================================================
+# 41,30,55,26,32,51,69,N,N,N,N,47,52,64,72,45,48,N,N,N,N,N,76
+
+
+# tree_root     = deserialize_level_order(serialized_tree)
+# inverted_tree = invert_tree(tree_root)
+# tree          = serialize_level_order(inverted_tree)
+# puts pretty_print(tree, &expand_missing_leaves)
+
+# ________________________________________________________________
+#                               41
+#               55                              30
+#       69              51              32              26
+#   72      64      52      47       •       •       •       •
+# 76   •   •   •   •   •  48  45   •   •   •   •   •   •   •   •
+# ================================================================
+# 41,55,30,69,51,32,26,72,64,52,47,N,N,N,N,76,N,N,N,N,N,48,45
+
