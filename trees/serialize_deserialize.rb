@@ -60,35 +60,32 @@ def deserialize_level_order(sequence, nil_value: 'N', separator: ",")
   end
 end
 
-# "5,4,7,3,N,2,N,-1,N,9"
-leetcode = [5,4,7,3,nil,2,nil,-1,nil,9]
+# tests
+tree1           = [
+  41, 30, 55, 26, 32, 51, 69, nil, nil, nil, nil, 47,
+  52, 64, 72, 45, 48, nil, nil, nil, nil, nil, 76]
+tree_root = deserialize_level_order(tree1.map { |v| v || 'N' }.join(","))
+tree      = serialize_level_order(tree_root)
+puts pretty_print(tree, &expand_missing_leaves)
 
-tree = deserialize_level_order(leetcode.map { |v| v || 'N' }.join(","))
-puts serialize_level_order(tree) == leetcode.map { |v| v || 'N' }.join(",") # => true 
+tree2           = "3,5,1,6,2,0,8,N,N,7,4" 
+tree_root       = deserialize_level_order(tree2) 
+tree            = serialize_level_order(tree_root) 
+puts pretty_print(tree) # no need for expansion!
+ 
+tree3         = [5,4,7,3,nil,2,nil,-1,nil,9]
+tree_root     = deserialize_level_order(tree3.map { |v| v || 'N' }.join(","))
+tree          = serialize_level_order(tree_root)
+puts pretty_print(tree, &expand_missing_leaves)
 
-serialized_tree = "3,5,1,6,2,0,8,N,N,7,4"
-tree_root       = deserialize_level_order(serialized_tree)
-
-# serialize a tree (dehydrate into a string)
-def serialize_tree_level_order(root, nil_value: 'N', separator: ',')
-  queue, output = [root], []
-  until queue.all? { |elem| elem.nil? } # until the queue is not empty
-    current = queue.shift
-    if current.nil?            # no node?
-      output << nil_value
-      2.times { queue << nil } # each empty node has 2 empty children
-    else
-      queue << (current.left if current.left)   # left
-      queue << (current.right if current.right) # right
-      output << current.val                     # store value to output
-    end
-  end
-  output.join(separator)
-end
-
-tree = serialize_tree_level_order(tree_root)
-puts pretty_print(tree)
-puts "BFS traversal (retain queue): #{tree}"
+# ________________________________________________________________
+#                               41
+#               30                              55
+#       26              32              51              69
+#    •       •       •       •      47      52      64      72
+#  •   •   •   •   •   •   •   •  45  48   •   •   •   •   •  76
+# ================================================================
+# 41,30,55,26,32,51,69,N,N,N,N,47,52,64,72,45,48,N,N,N,N,N,76
 
 # ________________________________
 #                3
@@ -97,37 +94,11 @@ puts "BFS traversal (retain queue): #{tree}"
 #  •   •   7   4   •   •   •   •
 # ================================
 # 3,5,1,6,2,0,8,N,N,7,4
-# BFS traversal (retain queue): 3,5,1,6,2,0,8,N,N,7,4
 
-# another attempt of serialization (dehydration, compression for archival/transmisson)
-def serialize_level_order(root, nil_value: 'N', separator: ',')
-  serialization = []
-  queue = [root]
-  until queue.empty?
-    member = queue.shift
-    if member
-      serialization << member.val
-      queue << member.left
-      queue << member.right
-    else
-      serialization << nil_value
-    end
-  end
-  serialization.join(separator)
-end
-
-tree = serialize_level_order(tree_root)
-puts pretty_print(tree)
-puts "BFS traversal (drain queue): #{tree}"
-
-# ________________________________________________________________
-#                                3
-#                5                               1
-#        6               2               0               8
-#    •       •       7       4       •       •       •       •
-#  •   •   •   •   •   •   •   •   •   •   •   •   •   •   •   •
-# ================================================================
-# 3,5,1,6,2,0,8,N,N,7,4,N,N,N,N,N,N,N,N
-# BFS traversal (drain queue): 3,5,1,6,2,0,8,N,N,7,4,N,N,N,N,N,N,N,N
-
-
+# ________________________________
+#                5
+#        4               7
+#    3       •       2       •
+# -1   •   •   •   9   •   •   •
+# ================================
+# 5,4,7,3,N,2,N,-1,N,9
