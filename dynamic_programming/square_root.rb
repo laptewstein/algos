@@ -1,3 +1,39 @@
+# Newton-Raphson method
+
+# The formula is derived from the equation 
+# x^2 - n = 0
+# which represents the equation for finding the square root of n. 
+#
+# The Newton-Raphson method involves finding the value of x that satisfies this equation by 
+# starting with an initial guess and then iteratively improving the guess using the derivative of the equation. 
+#
+# In this case, the derivative of the equation is 2x, 
+# and substituting it into the Newton-Raphson formula gives the formula shown above.
+
+def my_sqrt(n_squared, precision = 8)
+  root   = 1
+  margin = root.to_f / (10 ** (precision / 2))
+  root   = (root + n_squared / root) * 0.5 while (root - n_squared / root).abs > margin
+  root.round(precision)
+end
+
+# testing
+puts my_sqrt(34)
+# while: 33.0
+# new result: 9.721428571428572
+# while: 15.557142857142857
+# new result: 6.609428466463735
+# while: 6.224000209929674
+# new result: 5.876797445306567
+# while: 1.4652620423143352
+# new result: 5.831130717964241
+# while: 0.09133345468465226
+# new result: 5.830951897587282
+# while: 0.00035764075391764294
+# new result: 5.830951894845301
+# 5.830951897587282
+
+# traditional method (split the number into pairs, find multipliers and subtract while shfting right)
 def square_root(number, precision = 8)
   # if argument is float, find out          # of decimal points (for later use)
   decimal_places = 0
@@ -91,3 +127,5 @@ end
 # Square root of 345678 is 587.94387487
 # Square root of 3456789 is 1859.24420128
 # Square root of 2950771041 is 54321
+
+
