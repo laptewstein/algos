@@ -33,6 +33,28 @@ puts my_sqrt(34)
 # new result: 5.830951894845301
 # 5.830951897587282
 
+# binary search method
+def square_root_binary_search(n, precision = 8, as_float: false)
+  l, mid, r   = 0, n/2.0, n
+  margin = 1.to_f / (10 ** precision)
+  while r - l > margin
+    power_two = mid ** 2
+    if power_two > n
+      r = mid
+    else
+      l = mid
+    end
+    mid = (l + r) / 2
+  end
+  as_float ? mid.round(precision) : mid.round(2).to_i 
+end
+
+puts square_root_binary_search(34, as_float: true)  # 5.83095189
+puts square_root_binary_search(4)   		    # 2
+puts square_root_binary_search(9)   		    # 3
+puts square_root_binary_search(225) 		    # 15
+
+
 # traditional method (split the number into pairs, find multipliers and subtract while shfting right)
 def square_root(number, precision = 8)
   # if argument is float, find out          # of decimal points (for later use)
