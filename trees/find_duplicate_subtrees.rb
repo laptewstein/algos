@@ -5,25 +5,26 @@
 # For each kind of duplicate subtrees, you only need to return the root node of any one of them.
 # Two trees are duplicate if they have the same structure with the same node values.
 
-serialized_tree  = "0,2,4,N,N,N,3,5,7,N,N,N,6,2,4,N,N,N,9,10,N,N,12,N,13"
-tree_root        = deserialize_preorder_dfs(serialized_tree)
-tree_level_order = serialize_level_order(tree_root)
-pretty_print(tree_level_order, &expand_missing_leaves)
+# tree_root        = deserialize_preorder_dfs(serialized_tree)
+# tree_level_order = serialize_level_order(tree_root)
+# pretty_print(tree_level_order, &expand_missing_leaves)
 
 def find_duplicate_subtrees(root)
-  duplicates, seen = [], []
+  duplicates, seen = [], Hash.new(0)
   dfs = lambda do |node|
     return "#" if node.nil?
 
     # generate "subtree sequence" for each node
-    subtree_str = "#{node.val}#{dfs[node.left]}#{dfs[node.right]}"
+    # semicolon was needed to prevent confusion between
+    # 11:1 and 1:11 which look identical ("111") otherwise
+    subtree_str = "#{node.val}:#{dfs[node.left]}:#{dfs[node.right]}"
 
-    # increment the count of the subtree string in the hash map
-    if seen.detect {|el| el == subtree_str }
-      duplicates << node unless duplicates.include?(node)
-    else
-      seen << subtree_str
-    end
+    # have we seen this sequence before?
+    # if we did:
+    #   a) add into duplicates on first occurence
+    #   b) ignore other appearances, no further action is needed
+    duplicates << node if seen[subtree_str] == 1
+    seen[subtree_str] += 1
     subtree_str
   end
 
@@ -38,11 +39,45 @@ def generate_subtree(node)
   [node.val, *generate_subtree(node.left), *generate_subtree(node.right)].compact
 end
 
-puts serialized_tree
 puts find_duplicate_subtrees(tree_root)
   .map { |node| generate_subtree(node) }
   .inspect
 
+# serialized_tree = "2,1,11,N,N,N,11,1"
+# ________
+#    2
+#  1  11
+# 11 • 1 •
+# ========
+# 2,1,11,N,N,N,11,1
+# 11:#:#
+# 1:11:#:#:#
+# 1:#:#
+# 11:1:#:#:#
+# 2:1:11:#:#:#:11:1:#:#:#
+
+# => []
+
+# serialized_tree = "1,2,4,N,N,N,3,2,4,N,N,N,4"
+# ________________
+#        1
+#    2       3
+#  4   •   2   4
+# • • • • 4 • • •
+# ================
+# 1,2,4,N,N,N,3,2,4,N,N,N,4
+
+# 4:#:#
+# 24:#:#:#
+# 4:#:#
+# 2:4:#:#:#
+# 4:#:#
+# 3:2:4:#:#:#:4:#:#
+# 1:2:4:#:#:#:3:2:4:#:#:#:4:#:#
+
+# => [[4], [2, 4]]
+
+# serialized_tree  = "0,2,4,N,N,N,3,5,7,N,N,N,6,2,4,N,N,N,9,10,N,N,12,N,13"
 # ________________________________________________________________
 #                                0
 #                2                               3
@@ -53,7 +88,7 @@ puts find_duplicate_subtrees(tree_root)
 # ================================================================
 # 0,2,4,N,N,N,3,5,7,N,N,N,6,2,4,N,N,N,9,10,N,N,12,N,13
 
-# All possible subtrees of a given tree:
+# All possible subtrees of a given tree: (version without separating symbol)
 # 4##
 # 24###
 # 7##
