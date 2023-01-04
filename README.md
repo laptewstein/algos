@@ -61,13 +61,18 @@
   
 #### Tree:
 ```
+.
 ├── README.md
+├── backtracking
+│   └── permutations.rb
 ├── bfs
 │   └── racecar.rb
 ├── binary_search
 │   └── koko_eating_bananas.rb
 ├── cyclic_sort
 │   └── find_duplicates_in_array.rb
+├── dfs
+│   └── tsp_traveling_salesman_problem.rb
 ├── dynamic_programming
 │   ├── car_pooling.rb
 │   ├── coin_change_bottom_up.rb
@@ -77,6 +82,7 @@
 │   ├── find_duplicates_in_array.rb
 │   ├── find_words_in_stream.rb
 │   ├── flip_doors.rb
+│   ├── fractional_knapsack.rb
 │   ├── gas_stations.rb
 │   ├── integer_to_roman.rb
 │   ├── interview_practice_valerochka.py
@@ -86,7 +92,10 @@
 │   ├── median_finder.rb
 │   ├── perfect_squares.rb
 │   ├── playing_cards_and_csv_converter.rb
-│   └── sliding_window.md
+│   ├── print_multiplication_table.rb
+│   ├── sliding_window.md
+│   ├── songs_find_pairs_and_max_chain_roblox_retake.rb
+│   └── square_root.rb
 ├── lists
 │   ├── all-permutations-of-string.py
 │   ├── array_sum_pairs.py
@@ -96,12 +105,16 @@
 │   ├── find-missing-element.py
 │   ├── first_missing_positive_from_unsorted_array.rb
 │   ├── first_missing_positive_integer.rb
+│   ├── fisher_yates.rb
+│   ├── images
+│   │   └── max_rectangle.jpeg
 │   ├── largest-continuous-sum.py
 │   ├── max_rectangle.rb
 │   ├── merge_sorted_lists.py
 │   ├── move_zeroes_to_end_of_array.rb
 │   ├── next-higher-number-with-same-digits.py
 │   ├── next_greater_element_two_arrays_using_stack.rb
+│   ├── pascal_triangle.rb
 │   ├── product_except_self.rb
 │   ├── range_addition.rb
 │   ├── remove_nth_node_from_end_of_list.rb
@@ -110,26 +123,56 @@
 │   ├── sum_two_linked_list_nodes.rb
 │   └── toggle_doors.rb
 ├── matrix
+│   ├── binary_search.rb
 │   ├── count_all_submatrices.rb
 │   ├── count_islands.rb
 │   ├── encrypt_message_roblox_p1.rb
 │   ├── image_smoother.rb
+│   ├── images
+│   │   ├── image_smoother.png
+│   │   └── island_perimeter.png
 │   ├── island_coordinates.rb
 │   ├── island_perimeter.rb
-│   ├── rotate.rb
-│   └── maximal_rectangle.rb
+│   ├── maximal_rectangle.rb
+│   └── rotate.rb
+├── most_frequent_subtree_sum.rb
 ├── recursive
+│   ├── 01knapsack.rb
+│   ├── longest_playlist_roblox_retake_q2.rb
 │   ├── max_coins.rb
 │   ├── minimum_farthest_distance.rb
 │   ├── number_of_ways_to_decode_data.rb
 │   └── variable_length_password_generator.rb
 ├── sql
 │   ├── cumulative-values.html
+│   ├── img
+│   │   ├── bonuses_paid_by_month-year.png
+│   │   ├── bonuses_paid_by_month-year_by_department.png
+│   │   ├── cumulative-self-join.png
+│   │   ├── department_statement.png
+│   │   ├── employee_with_departments.png
+│   │   ├── select_star.png
+│   │   ├── self-join.png
+│   │   ├── table_bonus.png
+│   │   ├── table_department.png
+│   │   ├── table_employee.png
+│   │   └── worst_employees.png
 │   └── sql-star-schema-EDB.html
 ├── strings
 │   ├── fizzbuzz.py
 │   ├── increment_excel_columns.py
 │   └── rle.py
+├── trees
+│   ├── find_duplicate_subtrees.rb
+│   ├── max_subtree_sum.rb
+│   ├── path_sum_I.rb
+│   ├── populate_next_right_pointer_level_order.rb
+│   ├── serialize_deserialize_level_order.rb
+│   ├── serialize_deserialize_level_order_non_leetcode_padded_format.rb
+│   ├── serialize_deserialize_preorder_root_left_right_dfs.rb
+│   ├── subtree_with_a_given_sum.rb
+│   ├── tree_processing.rb
+│   └── visualize_trees.rb
 └── two_pointers
     ├── fast_slow_tortoise_and_hare
     │   ├── find_duplicate_in_array.rb
