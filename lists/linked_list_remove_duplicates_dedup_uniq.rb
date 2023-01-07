@@ -15,7 +15,7 @@ class LinkedList
   attr_accessor :head
 
   def initialize(arg)
-    @head = arg.is_a?(Node) ? arg : ListNode.new(arg)
+    @head = arg.is_a?(ListNode) ? arg : ListNode.new(arg)
   end
 
   def append(value)
@@ -108,6 +108,7 @@ class LinkedList
   # 1->4
   def uniq
     return unless @head
+
     current = @head
     seen    = Hash.new(0)
     seen[current.value] = 1
