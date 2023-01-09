@@ -12,7 +12,7 @@ def restore_ip_addresses(s)
 
   dfs = lambda do |l, separators, ip_address|
     if separators == 4 
-      return if ip_address.length < input_length + separators
+      return if ip_address.length < input_length + separators # optionally: return unless l == input_length
       resolved_ips << ip_address[0...-1]
     end
 
