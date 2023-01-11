@@ -6,7 +6,6 @@ def minimum_difference(list, idx = 0, partition = [], other_partition = [], part
   inc = findMinAbsDiff(list, idx.succ, partition + [list[idx]], other_partition, partitions: true)
   exc = findMinAbsDiff(list, idx.succ, partition, other_partition + [list[idx]], partitions: true)
 
-
   resp = inc.first < exc.first ? inc : exc 
   partitions ? resp : resp.first
 end
