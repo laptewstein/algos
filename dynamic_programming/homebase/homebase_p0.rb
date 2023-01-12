@@ -66,3 +66,24 @@
 # | 11 |              3 | 436.5200 | 2022-02-13 |
 # |  9 |              1 |  43.5800 | 2022-09-17 |
 # +----+----------------+----------+------------+
+
+#
+# WITH sales_by_month AS (
+#   SELECT
+#     salesperson_id,
+#     YEAR(created_at) AS year,
+#     MONTH(created_at) AS month,
+#     SUM(amount) as total_sales
+# FROM Sale
+# GROUP BY salesperson_id, year, month
+# )
+#
+# SELECT
+#   Salesperson.name,
+#   total_sales,
+#   year,
+#   month
+# FROM sales_by_month
+# JOIN Salesperson ON Salesperson.id = sales_by_month.salesperson_id
+# ORDER BY total_sales DESC
+# LIMIT 1

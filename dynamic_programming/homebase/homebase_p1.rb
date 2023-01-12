@@ -36,3 +36,21 @@ pairs = [
   [5, 6], [1, 3], [2, 3], [3, 6], [15, 12],
   [5, 7], [4, 5], [4, 9], [9, 12], [30, 16]
 ]
+
+# Space: O(n), Time: O(n)
+def findNodesWithZeroAndOneParents(pairs)
+  # all known parents
+  parents          = pairs.map {|p, _| p }
+  child_to_parents = Hash.new(0)
+
+  pairs.each do |p, c|
+    child_to_parents[c] += 1
+  end
+
+  one_parent   = child_to_parents.select { |k, v| v == 1 }.map {|a, _| a }
+  zero_parents = (parents - child_to_parents.keys).uniq
+  [zero_parents, one_parent]
+end
+
+# puts findNodesWithZeroAndOneParents(pairs).inspect
+# [[1, 2, 15, 4, 30], [7, 5, 9, 16]]
