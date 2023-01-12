@@ -1,3 +1,41 @@
+/*
+CoderPad provides a basic SQL sandbox with the following schema.
+You can also use commands like `show tables` and `desc employees`
+
+employees                             projects
++---------------+---------+           +---------------+---------+
+| id            | int     |<----+  +->| id            | int     |
+| first_name    | varchar |     |  |  | title         | varchar |
+| last_name     | varchar |     |  |  | start_date    | date    |
+| salary        | int     |     |  |  | end_date      | date    |
+| department_id | int     |--+  |  |  | budget        | int     |
++---------------+---------+  |  |  |  +---------------+---------+
+                             |  |  |
+departments                  |  |  |  employees_projects
++---------------+---------+  |  |  |  +---------------+---------+
+| id            | int     |<-+  |  +--| project_id    | int     |
+| name          | varchar |     +-----| employee_id   | int     |
++---------------+---------+           +---------------+---------+
+*/
+
+--------------
+SELECT e.first_name, e.last_name, e.salary,
+  d.name as department_name
+FROM employees   AS e
+JOIN departments AS d ON e.department_id = d.id
+--------------
+
++------------+-----------+--------+-----------------+
+| first_name | last_name | salary | department_name |
++------------+-----------+--------+-----------------+
+| John       | Smith     |  20000 | Reporting       |
+| Ava        | Muffinson |  10000 | Silly Walks     |
+| Cailin     | Ninson    |  30000 | Engineering     |
+| Mike       | Peterson  |  20000 | Engineering     |
+| Ian        | Peterson  |  80000 | Engineering     |
+| John       | Mills     |  50000 | Marketing       |
++------------+-----------+--------+-----------------+
+
 DESCRIBE departments;
 +-------+--------------+------+-----+---------+----------------+
 | Field | Type         | Null | Key | Default | Extra          |
