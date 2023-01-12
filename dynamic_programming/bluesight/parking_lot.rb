@@ -40,7 +40,7 @@ class ParkingLot
     @cars        = 0
   end
 
-  def capacity()
+  def capacity
     regular_spots + large_spots + motorcycle_spots
   end
 
