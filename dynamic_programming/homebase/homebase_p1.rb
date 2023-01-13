@@ -1,4 +1,5 @@
 =begin
+
 Suppose we have some input data describing a graph of relationships between parents and
 children over multiple families and generations.
 The data is formatted as a list of (parent, child) pairs, where each individual
@@ -6,51 +7,53 @@ is assigned a unique positive integer identifier.
 
 For example, in this diagram, 3 is a child of 1 and 2, and 5 is a child of 4:
 
-  1   2    4           30
+  1   2   4           30
   \ /   /  \           \
-   3   5    9  15      16
+   3   5   9  15       16
    \ / \    \ /
     6   7   12
 
-Sample input/output (pseudodata):
+Sample input/output (pseudo data):
   pairs = [
-    (5, 6), (1, 3), (2, 3), (3, 6), (15, 12),
-    (5, 7), (4, 5), (4, 9), (9, 12), (30, 16)
+    (5, 6), (1, 3), (2, 3), (3, 6), (15, 12), (5, 7), (4, 5), (4, 9), (9, 12), (30, 16)
   ]
 
-Write a function that takes this data as input and returns two collections: one containing all individuals with zero known parents, and one containing all individuals with exactly one known parent.
+Write a function that takes this data as input and returns two collections:
+  - one containing all individuals with zero known parents,
+  - and one containing all individuals with exactly one known parent.
+Output may be in any order.
 
-
-Output may be in any order:
-
-findNodesWithZeroAndOneParents(pairs) => [
-  [1, 2, 4, 15, 30],   // Individuals with zero parents
-  [5, 7, 9, 16]        // Individuals with exactly one parent
-]
-
-Complexity Analysis variables:
-  n: number of pairs in the input
 =end
 
-pairs = [
-  [5, 6], [1, 3], [2, 3], [3, 6], [15, 12],
-  [5, 7], [4, 5], [4, 9], [9, 12], [30, 16]
-]
-
 # Space: O(n), Time: O(n)
-def findNodesWithZeroAndOneParents(pairs)
-  # all known parents
-  parents          = pairs.map {|p, _| p }
-  child_to_parents = Hash.new(0)
+def find_nodes_with_zero_and_one_parents(pairs)
+  parents  = []
+  children = []
+  parent_count = Hash.new(0)
 
-  pairs.each do |p, c|
-    child_to_parents[c] += 1
+  pairs.each do |parent, child|
+    parents << parent
+    children << child
+    # count how many times element appears as a child
+    parent_count[child] += 1
   end
 
-  one_parent   = child_to_parents.select { |k, v| v == 1 }.map {|a, _| a }
-  zero_parents = (parents - child_to_parents.keys).uniq
-  [zero_parents, one_parent]
+  # zero parents elements = they are not children of any other parent
+  zero_parents = parents - children
+
+  # children with only one parent appear only once in last position
+  one_parent   = parent_count
+    .select { |_, count| count == 1 }
+    .map &:first
+  [zero_parents.uniq.sort, one_parent.sort]
 end
 
-# puts findNodesWithZeroAndOneParents(pairs).inspect
-# [[1, 2, 15, 4, 30], [7, 5, 9, 16]]
+pairs = [
+  [5, 6], [1, 3], [2, 3], [3, 6], [15, 12], [5, 7], [4, 5], [4, 9], [9, 12], [30, 16]
+]
+
+#test
+puts find_nodes_with_zero_and_one_parents(pairs) == [
+  [1, 2, 4, 15, 30], # Individuals with zero parents
+  [5, 7, 9, 16]      # Individuals with exactly one parent
+] # true
