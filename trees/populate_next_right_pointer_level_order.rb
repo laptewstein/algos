@@ -19,7 +19,7 @@ def connect(root)
   
   # onn level 2 and below, root.next has been taken care of on previous step
   root.right.next = root.next.left if root.next 
-  end
+
   connect(root.left)
   connect(root.right)
   root
