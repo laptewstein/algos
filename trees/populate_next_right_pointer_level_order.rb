@@ -42,3 +42,64 @@ def connect(root)
   end
   root
 end
+
+# variation: Corrupt (incomplete) Binary Tree
+# see https://github.com/Kartoshka548/algos/blob/master/trees/NextNodeBinaryTree.png
+# ________________________________________________________________
+#                                A
+#               B               ->             C
+#       D      ->      E               ->              G
+#    H      ->      I     •          •     •        •     •
+# ================================================================
+
+# level order (not ALL children present)
+def connect(root)
+  return unless root
+
+  queue = [root]
+  until queue.empty?
+    previous = nil
+    queue.size.times do
+      node          = queue.shift
+      previous.next = node if previous
+      previous      = node
+      # populate carousel with current level children nodes
+      queue << node.left   if node.left
+      queue << node.right  if node.right
+    end
+  end
+  root
+end
+
+# test corrupt structure
+class TreeNode
+  attr_accessor :val, :left, :right, :next
+
+  def initialize(val, next_val = nil)
+    @val = val
+    @next = next_val
+    @left, @right = nil, nil
+  end
+end
+
+# Nodes
+root   = TreeNode.new("A")
+b      = TreeNode.new("B")
+c      = TreeNode.new("C")
+d      = TreeNode.new("D")
+e      = TreeNode.new("E")
+c.right = TreeNode.new("G")
+d.left  = TreeNode.new("H")
+e.left  = TreeNode.new("I")
+b.left  = d
+b.right = e
+root.left  = b
+root.right = c
+
+connect(root)
+
+puts b.next == c                      # true
+puts d.next == e                      # true
+puts d.next.next.val == ?G            # true
+puts d.left.next == e.left            # true
+puts d.next.next.next === e.left.next # true
