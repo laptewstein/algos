@@ -9,51 +9,16 @@
 #   Given a valid binary tree with unpopulated "next" nodes, 
 #   write a function to populate the "next" nodes for the tree.
 
-
-# DFS, O(n) space due to recursion
-def connect(root)
-  return if root.nil?
-  
-  # not a leaf node (has children)
-  root.left.next = root.right if root.left
-  
-  # onn level 2 and below, root.next has been taken care of on previous step
-  root.right.next = root.next.left if root.next 
-
-  connect(root.left)
-  connect(root.right)
-  root
-end
-
-# level order, O(1) space
-def connect(root)
-  node                     = root 
-  first_node_of_next_level = root.left if root # there might be no root!
-  while node && first_node_of_next_level
-    node.left.next  = node.right
-    node.right.next = node.next.left if node.next
-
-    node = node.next
-    # go down one level if last node of current level has been updated
-    unless node
-      node                     = first_node_of_next_level
-      first_node_of_next_level = node.left
-    end
-  end
-  root
-end
-
-# variation: Corrupt (incomplete) Binary Tree
 # see https://github.com/Kartoshka548/algos/blob/master/trees/NextNodeBinaryTree.png
 # ________________________________________________________________
 #                                A
 #               B               ->             C
-#       D      ->      E               ->              G
-#    H      ->      I     •          •     •        •     •
+#       D      ->      E                ->             G
+#    H     •        •     •     ->    •     •       I     •
 # ================================================================
 
-# level order (not ALL children present)
-def connect(root)
+# level order, [process entire level]
+def connect_bfs(root)
   return unless root
 
   queue = [root]
@@ -71,35 +36,85 @@ def connect(root)
   root
 end
 
-# test corrupt structure
-class TreeNode
-  attr_accessor :val, :left, :right, :next
+# DFS, O(n) space due to recursion
+def connect_dfs(root)
+  # helper method
+  get_next_child = lambda do |node|
+    next_node = node.next
+    while next_node
+      return next_node.left  if next_node.left
+      return next_node.right if next_node.right
 
-  def initialize(val, next_val = nil)
-    @val = val
-    @next = next_val
-    @left, @right = nil, nil
+      next_node = next_node.next
+    end
   end
+
+  # recursive
+  connect = lambda do |node|
+    return unless node
+
+    node.left.next  = node.right || get_next_child[node] if node.left
+    node.right.next = get_next_child[node]               if node.right
+
+    connect[node.left]
+    connect[node.right]
+  end
+
+  connect[root]
 end
 
-# Nodes
-root   = TreeNode.new("A")
-b      = TreeNode.new("B")
-c      = TreeNode.new("C")
-d      = TreeNode.new("D")
-e      = TreeNode.new("E")
-c.right = TreeNode.new("G")
-d.left  = TreeNode.new("H")
-e.left  = TreeNode.new("I")
-b.left  = d
-b.right = e
-root.left  = b
-root.right = c
+# tests
+[:connect_dfs, :connect_bfs].each do |meth|
+  class TreeNode
+    attr_accessor :val, :left, :right, :next
 
-connect(root)
+    def initialize(val, next_val = nil)
+      @val = val
+      @next = next_val
+      @left, @right = nil, nil
+    end
+  end
 
-puts b.next == c                      # true
-puts d.next == e                      # true
-puts d.next.next.val == ?G            # true
-puts d.left.next == e.left            # true
-puts d.next.next.next === e.left.next # true
+  # Nodes
+  root   = TreeNode.new("A")
+  b      = TreeNode.new("B")
+  c      = TreeNode.new("C")
+  d      = TreeNode.new("D")
+  e      = TreeNode.new("E")
+  g      = TreeNode.new("G")
+  c.right = g
+  d.left  = TreeNode.new("H")
+  g.left  = TreeNode.new("I")
+  b.left  = d
+  b.right = e
+  root.left  = b
+  root.right = c
+
+  send(meth, root)
+
+  puts b.next == c                      # true
+  puts d.next == e                      # true
+  puts d.next.next.val == ?G            # true
+  puts d.left.next == g.left            # true
+  puts d.next.next.next === g.left.next # true
+end
+
+# # technique below will only work for lab-grown,
+# # perfect trees (each node always has 2 children)
+# # Space: O(1)
+# def connect_o_one(root)
+#   node                     = root
+#   first_node_of_next_level = root.left if node # there might be no root!
+#   while node && first_node_of_next_level
+#     node.left.next  = node.right
+#     node.right.next = node.next.left if node.next
+#
+#     node = node.next
+#     # go down one level if last node of current level has been updated
+#     unless node
+#       node                     = first_node_of_next_level
+#       first_node_of_next_level = node.left
+#     end
+#   end
+#   root
+# end
