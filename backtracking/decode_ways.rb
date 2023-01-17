@@ -86,18 +86,41 @@ end
 # DP
 # A classic DP problem
 # There are no ways to decode a string which starts with 0.
+#
+# 0. Initialize the last element of the dp array to 1 (which is OOB at <last index + 1>)
+# 1. Iterate through the string backwards.
+# 2. For each character:
+#   - if character is == "0":
+#       It cannot be used as a single digit in any decoding,
+#       set the dp[index] to 0 and continue to next.
+
+#   - If char != 0:
+#       a) set the dp value to the number of ways
+#       that the substring starting at <next index> can be decoded,
+#       and
+#       b) add the number of ways that the substring starting from the
+#       next two characters can be decoded, given that
+#       the next of two characters comibined are less than 27 in value
+#       (a valid <two digit letter> which can be read either way).
+# 3. Return the first element of the dp array, which represents
+# the number of ways that the entire input string can be decoded.
 def num_decodings_dp(s)
   dp = []
   dp[s.length] = 1
   (s.length.pred).downto(0).each do |idx|
-    if s[idx] == "0"
-      dp[idx] = 0
-    else
-      dp[idx] = dp[idx.succ]
-      if idx < s.length.pred
-        dp[idx] += dp[idx + 2] if s[idx, 2].to_i < 27
-      end
-    end
+    next dp[idx] = 0 if s[idx] == "0"
+
+    dp[idx] = dp[idx.succ]
+    next if idx == s.length.pred # only one way to decode a singe char / digit
+
+    # We're at - or - before the second last character.
+    # [WE ARE STILL AT THE SAME NUMBER OF WAYS OF DECODING THE STRING AT THIS POINT]
+    # - one single additional digit on its own does not add any new scope.
+
+    # unless a combination of two chars at <current index + one char after>
+    # is a valid letter too. If so: we've found YET ANOTHER WAY to decode the sequence
+    # as <two independent single digit chars> AND <an additional char, two-digits long>
+    dp[idx] += dp[idx + 2] if s[idx, 2].to_i < 27 # == s[idx..idx.succ]
   end
   # puts dp.inspect
   dp.first
