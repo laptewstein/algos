@@ -42,17 +42,18 @@ end
 # 1*1*1*1 + 2*2*2*2 + 5*5*5*5 + 3*3*3*3 = 723
 def is_armstrong_number?(int)
   n   = "#{int}".length
-  sum = 0
-  denominator   = 10 ** n.pred if n > 2
+  return true if n < 2
+  sum           = 0
+  denominator   = 10 ** n.pred
   remaining_int = int
-  remaining_n   = n
-  until remaining_n == 0
-    multiplier = (remaining_int / denominator)
+  cycles        = n
+  while cycles > 0
+    multiplier    = (remaining_int / denominator)
     sum += (multiplier ** n)
     remaining_int -= (multiplier * denominator)
-    puts [denominator, multiplier, sum, remaining_int].inspect
-    denominator /= 10
-    remaining_n = remaining_n.pred
+    # puts [denominator, multiplier, sum, remaining_int].inspect
+    denominator   /= 10
+    cycles        = cycles.pred
   end
 
   sum == int
