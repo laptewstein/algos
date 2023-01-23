@@ -64,25 +64,30 @@ def is_match_dp(s, p)
   cache       = Array.new(r.succ) { Array.new(c.succ, false) }
   cache[r][c] = true # empty string + empty pattern = match
 
-  r.downto(0) do |s_idx|
-    c.pred.downto(0) do |p_idx|
+  # iterate from the end
+  r.downto(0) do |s_idx|        # string
+    c.pred.downto(0) do |p_idx| # pattern
 
-      leftmost = s_idx < r && (s[s_idx] == p[p_idx] || p[p_idx] == '.')
+      # if <next> is a '*' modifier: match of <current character> is optional
+      # rest of string defines the outcome; /a*b*c/ -> /b*c/ (drop a* lookup)
+      next cache[s_idx][p_idx] = true if p[p_idx.succ] == '*' && cache[s_idx][p_idx + 2]
 
-      if p[p_idx.succ] == '*'
+      # edge case: string index is OOB
+      next cache[s_idx][p_idx] = false unless s_idx < r
 
-        # leftmost match is optional if modifier is a '*'
-        # /a*b*c/ -> /b*c/ (drop a* lookup)
-        cache[s_idx][p_idx] = cache[s_idx][p_idx + 2] || (leftmost && cache[s_idx.succ][p_idx])
+      # current character must match
+      next cache[s_idx][p_idx] = false unless s[s_idx] == p[p_idx] || p[p_idx] == '.'
 
-      else
-
-        cache[s_idx][p_idx] = leftmost && cache[s_idx.succ][p_idx.succ]
-
-      end
+      # a) if next <pattern char> is a modifier:
+      #       with the same pattern, rely on the cached next char result
+      #       i.e [a]abbc -> abbc
+      # b) rely on cached result (result for both pointers shifted)
+      #       i.e. [b]bc -> [b]c
+      match_is_optional = p[p_idx.succ] == '*' # none or more
+      cache[s_idx][p_idx] = cache[s_idx.succ][match_is_optional ? p_idx : p_idx.succ]
     end
   end
   cache.first.first
 end
 
-is_match_dp("abbbc", "a*b*c*")
+puts is_match_dp("abbbsc", "a*b*.*c*")
