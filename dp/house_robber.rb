@@ -25,7 +25,7 @@
 # Total amount you can rob = 2 + 2 = 4.
 
 
-# # recursive
+# # recursive, naive
 def rob(nums)
   rec = lambda do |idx|
     return 0 if idx < 0
@@ -41,7 +41,7 @@ Benchmark.bm( 20 ) do |bm|
   bm.report { rob([3, 1, 2, 5, 4, 2]) == 10 }
 end
 
-# recursive with memoization
+# recursive with memoization, still naive
 def rob(nums)
   memo = Array.new(nums.size.pred, nil)
   rec = lambda do |idx|
@@ -60,8 +60,8 @@ Benchmark.bm( 20 ) do |bm|
   bm.report { rob([3, 1, 2, 5, 4, 2]) == 10 }
 end
 
-# dynamic programming, one pass
-# O(n) space, O(n) time
+# ------ optimal solutions below
+# dynamic programming, one pass, O(n) time *but also* O(n) space
 def rob(nums)
   dp = nums[0..0] + Array.new(nums.size.pred, nil)
   (1...nums.size).each do |idx|
@@ -82,6 +82,25 @@ Benchmark.bm( 20 ) do |bm|
   bm.report { rob([3, 1, 2, 5, 4, 2]) == 10 }
 end
 
+# one pass, O(n) time and O(1) CONSTANT space
+def rob(nums)
+  current_max = 0
+  previous_max  = 0
+  nums.each do |current|
+    break_in     = [current_max, previous_max + current].max
+    previous_max = current_max
+    current_max  = break_in
+  end
+  current_max
+end
+
+require 'benchmark'
+Benchmark.bm( 20 ) do |bm|
+  bm.report('dp constant space') { rob([2, 1, 1, 3, 1]) == 5 }
+  bm.report { rob([3, 1, 2, 5, 4]) == 9 }
+  bm.report { rob([3, 1, 2, 5, 4, 2]) == 10 }
+end
+
 #                          user     system      total        real
 # recursive              0.000021   0.000007   0.000028 (  0.000022)
 #                        0.000010   0.000004   0.000014 (  0.000013)
@@ -96,3 +115,8 @@ end
 # dynamic programming    0.000019   0.000000   0.000019 (  0.000018)
 #                        0.000010   0.000000   0.000010 (  0.000009)
 #                        0.000008   0.000000   0.000008 (  0.000008)
+
+#                          user     system      total        real
+# dp constant space      0.000007   0.000002   0.000009 (  0.000008)
+#                        0.000005   0.000001   0.000006 (  0.000006)
+#                        0.000004   0.000001   0.000005 (  0.000005)
