@@ -85,12 +85,13 @@ end
 # top - we only need to keep two variables instead of an array
 # one pass, O(n) time and O(1) CONSTANT space
 def rob(nums)
-  previous_house_max        = 0
   max_stolen_two_houses_ago = 0
+  previous_house_max        = 0
   nums.each do |current|
-    break_in_attempt          = [previous_house_max, max_stolen_two_houses_ago + current].max
-    max_stolen_two_houses_ago = previous_house_max
-    previous_house_max        = break_in_attempt
+    previous_house_max, max_stolen_two_houses_ago = [
+      previous_house_max,
+      max_stolen_two_houses_ago + current
+    ].max, previous_house_max
   end
   previous_house_max # most recent break-in from above
 end
