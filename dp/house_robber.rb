@@ -89,9 +89,9 @@ def rob(nums)
   previous_house_max        = 0
   nums.each do |current|
     previous_house_max, max_stolen_two_houses_ago = [
-      previous_house_max,
-      max_stolen_two_houses_ago + current
-    ].max, previous_house_max
+      [previous_house_max, max_stolen_two_houses_ago + current].max, 
+      previous_house_max
+    ]
   end
   previous_house_max # most recent break-in from above
 end
