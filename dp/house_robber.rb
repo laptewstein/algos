@@ -82,16 +82,17 @@ Benchmark.bm( 20 ) do |bm|
   bm.report { rob([3, 1, 2, 5, 4, 2]) == 10 }
 end
 
+# top - we only need to keep two variables instead of an array
 # one pass, O(n) time and O(1) CONSTANT space
 def rob(nums)
-  current_max    = 0 # -1
-  previous_max   = 0 # -2
+  previous_house_max        = 0
+  max_stolen_two_houses_ago = 0
   nums.each do |current|
-    break_in     = [current_max, previous_max + current].max
-    previous_max = current_max
-    current_max  = break_in
+    break_in_attempt          = [previous_house_max, max_stolen_two_houses_ago + current].max
+    max_stolen_two_houses_ago = previous_house_max
+    previous_house_max        = break_in_attempt
   end
-  current_max
+  previous_house_max # most recent break-in from above
 end
 
 require 'benchmark'
