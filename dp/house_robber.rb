@@ -84,8 +84,8 @@ end
 
 # one pass, O(n) time and O(1) CONSTANT space
 def rob(nums)
-  current_max = 0
-  previous_max  = 0
+  current_max    = 0 # -1
+  previous_max   = 0 # -2
   nums.each do |current|
     break_in     = [current_max, previous_max + current].max
     previous_max = current_max
