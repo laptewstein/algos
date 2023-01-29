@@ -1,32 +1,68 @@
-def rle(string)
-  trailing_count = 0
-  construct      = ''
-  (0...string.length).each do |idx|
-    current = string[idx]
-    trailing_count += 1 and next if construct[-1] == current
+def lexicographically_smallest(string, n)
+  result = ''
+  until string.empty?
+    puts [string, result].inspect
+    n_chars = string[0...n].chars.sort
+    result += n_chars[0]
+    str = n_chars[1..-1].join
+    str += string[n..-1] if string[n..-1]
+    string = str
+  end  
+  result
+end
 
-    if trailing_count > 0
-      construct << trailing_count.succ.to_s
-      trailing_count = 0
+# same as below, without sorting and splitting
+def lexicographically_smallest(string, n)
+  result = ''
+  until string.empty?
+    puts [string, result].inspect
+    idx = 0
+    smallest = string[idx]
+    (idx.succ...[n, string.length].min).each do |i|
+      next if string[i] > smallest
+      smallest = string[i]
+      idx = i
     end
-    construct << current
+    result += smallest
+
+    str = string[0...idx]
+    str += string[idx.succ..-1] if string[idx.succ..-1]
+    string = str
   end
-  return construct if trailing_count == 0
-  construct + "#{trailing_count + 1}"
+  result
 end
 
+# puts lexicographically_smallest('gaurang', 3) == 'agangru'
+# true
+# ["gaurang", ""]
+# ["gurang", "a"]
+# ["ruang", "ag"]
+# ["rung", "aga"]
+# ["rug", "agan"]
+# ["ru", "agang"]
+# ["u", "agangr"]
 
-def rle(string, prev = '', idx = 0, count = 1)
-  if idx == string.length
-    retval = "#{prev}"
-    return count == 1 ? retval : retval + count.to_s
-  end
+puts lexicographically_smallest('geeksforgeeks', 5) == 'eefggeekkorss'
+true
+# ["geeksforgeeks", ""]
+# ["egksforgeeks", "e"]
+# ["fgksorgeeks", "ee"]
+# ["gkosrgeeks", "eef"]
+# ["korsgeeks", "eefg"]
+# ["korseeks", "eefgg"]
+# ["korseks", "eefgge"]
+# ["korsks", "eefggee"]
+# ["korss", "eefggeek"]
+# ["orss", "eefggeekk"]
+# ["rss", "eefggeekko"]
+# ["ss", "eefggeekkor"]
+# ["s", "eefggeekkors"]
 
-  if string[idx] == prev
-    rle(string, prev, idx.succ, count.succ)
-  else
-    rle(string, prev, string.length, count) + rle(string, string[idx], idx.succ, 1)
-  end
-end
 
-puts rle('aaaaabbbaa') == 'a5b3a2'
+
+
+# You are given a string of length N and a parameter k. The string can be manipulated by taking one of the first k letters and moving it to the end.
+
+# Write a program to determine the lexicographically smallest string that can be created after an unlimited number of moves.
+
+# For example, suppose we are given the string daily and k = 1. The best we can create in this case is ailyd.
