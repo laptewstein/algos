@@ -58,7 +58,8 @@ puts lexicographically_smallest('geeksforgeeks', 5) == 'eefggeekkorss' # true
 
 
 # https://leetcode.com/problems/orderly-queue/description/
-# You are given a string s and an integer k. You can choose one of the first k letters of s and append it at the end of the string..
+# You are given a string s and an integer k. 
+# You can choose one of the first k letters of s and append it at the end of the string..
 # Return the lexicographically smallest string you could have after applying the mentioned step any number of moves.
 
 def orderly_queue(s, k)
