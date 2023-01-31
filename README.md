@@ -64,7 +64,10 @@
 .
 ├── README.md
 ├── backtracking
-│   └── permutations.rb
+│   ├── decode_ways.rb
+│   ├── permutations.rb
+│   ├── powerset_and_permutations_backrtacking.rb
+│   └── resolve_ipv4_address.rb
 ├── bfs
 │   └── racecar.rb
 ├── binary_search
@@ -73,8 +76,16 @@
 │   └── find_duplicates_in_array.rb
 ├── dfs
 │   └── tsp_traveling_salesman_problem.rb
+├── dp
+│   ├── 72.edit_distance.rb
+│   ├── house_robber.rb
+│   └── regular_expression_matching.rb
 ├── dynamic_programming
+│   ├── bluesight
+│   │   ├── activerecord_queries.rb
+│   │   └── parking_lot.rb
 │   ├── car_pooling.rb
+│   ├── climbing_stairs.rb
 │   ├── coin_change_bottom_up.rb
 │   ├── coin_change_top_down.rb
 │   ├── enclosed_itemgetter_methods.py
@@ -84,18 +95,31 @@
 │   ├── flip_doors.rb
 │   ├── fractional_knapsack.rb
 │   ├── gas_stations.rb
+│   ├── greenhouse
+│   │   ├── lion.rb
+│   │   └── lion_spec.rb
+│   ├── homebase
+│   │   ├── homebase_p0.sql
+│   │   ├── homebase_p1.rb
+│   │   └── homebase_p2.rb
 │   ├── integer_to_roman.rb
-│   ├── interview_practice_valerochka.py
 │   ├── kth_permutation.py
 │   ├── kth_permutation.rb
+│   ├── max_points_on_a_line.rb
 │   ├── maximum_profit_in_job_scheduling.rb
 │   ├── median_finder.rb
 │   ├── perfect_squares.rb
+│   ├── permutation_palindrome_and_armstrong_numbers.rb
 │   ├── playing_cards_and_csv_converter.rb
 │   ├── print_multiplication_table.rb
+│   ├── pyramids_cs101.rb
 │   ├── sliding_window.md
 │   ├── songs_find_pairs_and_max_chain_roblox_retake.rb
+│   ├── splitwise-split-the-bill.rb
 │   └── square_root.rb
+├── intern_questions
+│   ├── best_of_luck_card_game.rb
+│   └── interview_practice_valerochka.py
 ├── lists
 │   ├── all-permutations-of-string.py
 │   ├── array_sum_pairs.py
@@ -109,6 +133,8 @@
 │   ├── images
 │   │   └── max_rectangle.jpeg
 │   ├── largest-continuous-sum.py
+│   ├── linked_list_remove_duplicates_dedup_uniq.rb
+│   ├── linked_list_reorder_and_reverse.rb
 │   ├── max_rectangle.rb
 │   ├── merge_sorted_lists.py
 │   ├── move_zeroes_to_end_of_array.rb
@@ -142,6 +168,7 @@
 │   ├── max_coins.rb
 │   ├── minimum_farthest_distance.rb
 │   ├── number_of_ways_to_decode_data.rb
+│   ├── partition_array_into_two_with_minimum_difference.rb
 │   └── variable_length_password_generator.rb
 ├── sql
 │   ├── cumulative-values.html
@@ -157,13 +184,18 @@
 │   │   ├── table_department.png
 │   │   ├── table_employee.png
 │   │   └── worst_employees.png
+│   ├── payer_analytics_select_from_windows_and_subqueries.sql
 │   └── sql-star-schema-EDB.html
 ├── strings
 │   ├── fizzbuzz.py
 │   ├── increment_excel_columns.py
-│   └── rle.py
+│   ├── orderly_queue.rb
+│   ├── rle.py
+│   └── rle.rb
 ├── trees
+│   ├── NextNodeBinaryTree.png
 │   ├── find_duplicate_subtrees.rb
+│   ├── insert_a_node_into_BST_tree.rb
 │   ├── max_subtree_sum.rb
 │   ├── path_sum_I.rb
 │   ├── populate_next_right_pointer_level_order.rb
