@@ -45,7 +45,7 @@ class Node
   end    
 end
 
-# create a sample tree
+# sample tree: https://github.com/laptewstein/algos/blob/master/trees/pic21-300x224.png?raw=true
 root = Node.new('+')
 root.left = Node.new('*')
 root.left.left = Node.new('5')
@@ -56,7 +56,8 @@ root.right.right = Node.new('20')
 puts Node.evaluateExpressionTree(root) # 100
 
 
-# create a sample tree
+# sample tree: https://github.com/laptewstein/algos/blob/master/trees/pic11-300x259.png
+
 root = Node.new('+')
 root.left = Node.new('*')
 root.left.left = Node.new('5')
