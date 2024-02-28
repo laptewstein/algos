@@ -1,3 +1,10 @@
+# The total number of iterations is k - 1.
+# Time complexity: O(N * log k)
+#
+# The space complexity is determined by the intermediate arrays created during merging. 
+# At most, k intermediate arrays exist simultaneously, each with a size of N/k (on average).
+# Space complexity: O(N)
+Therefore, the space complexity is O(N).
 def k_way_merge(*args)
   sorted_array = args.clone
   while sorted_array.size > 1
@@ -8,7 +15,11 @@ def k_way_merge(*args)
   sorted_array.first
 end
 
-
+# The worst-case scenario occurs when all elements need to be compared. 
+# Time complexity is O(m + n)
+#
+# The space complexity is determined by the size of the final_array, (at most m + n). Therefore, 
+# Space complexity is also O(m + n)
 def merge_two_lists(left, right)
   l, r = 0, 0
   final_array = []
