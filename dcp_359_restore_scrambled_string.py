@@ -88,14 +88,14 @@ def generate_num_helper(counter: C[str]) -> C[int]:
     for value, word_counter in enumerate(WORDS):
         temp = maxsize
         for key in word_counter:
-            # checking the number of occurance of current number
+            # check number of occurences of current character
             if counter[key] >= word_counter[key]:
                 temp = min(temp, counter[key] // word_counter[key])
             else:
                 temp = 0
                 break
         else:
-            # updating the input counter to remove the current number
+            # update input counter to remove current digit
             curr_counter = Counter()
             for key in word_counter:
                 curr_counter[key] = word_counter[key] * temp
