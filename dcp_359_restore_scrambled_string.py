@@ -63,20 +63,3 @@ if __name__ == "__main__":
     print(generate_num("niesevehrtfeev"))
     print(generate_num("niesveeviehertifennevf"))
 
-
-def generate_num(string: str) -> int:
-    """
-        TIME COMPLEXITY: O(n x log(n))
-        SPACE COMPLEXITY: O(n)
-    """
-    str_counter = Counter(string)
-    numbers_counter = generate_num_helper(str_counter)
-
-    numbers_list = [str(num) for num in sorted(numbers_counter.elements())]
-    return int("".join(numbers_list))
-
-
-if __name__ == "__main__":
-    print(generate_num("niesevehrtfeev"))
-    print(generate_num("niesveeviehertifennevf"))
-
