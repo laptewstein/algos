@@ -1,4 +1,4 @@
-# Algo implementations
+# Leetcode questions grouped by type
 - **Lists**
   * [Sum Pairs](lists/array_sum_pairs.py): 
     *Within a list of integers, find matches for target number. Each integer may appear only once in a pair.*
